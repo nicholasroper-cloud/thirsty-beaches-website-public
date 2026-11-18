@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": [
+    "/assets/*",
+    "/styles.css",
+    "/app.js",
+    "/arcade.js",
+    "/cup-bubbles.js",
+    "/quote.js",
+    "/studio.js",
+    "/specials.js",
+    "/sw.js",
+    "/sw-register.js",
+    "/maze-rules.js",
+    "/unsubscribe.js",
+    "/confirm.js",
+    "/signup-thanks.js",
+    "/manifest.webmanifest",
+    "/robots.txt",
+    "/sitemap.xml",
+    "/llms.txt",
+    "/llms-full.txt",
+    "/010245df2c5b7bb57c9b59abcb5f89ab.txt"
+  ]
+}

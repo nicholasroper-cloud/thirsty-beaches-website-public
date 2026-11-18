@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Owner/staff pages (/trailer, /studio) are kept out of search with a noindex
+# meta tag and an X-Robots-Tag header (see _headers). They are deliberately NOT
+# disallowed here: a Disallow would stop crawlers from seeing the noindex.
+
+Sitemap: https://thirstybeaches.com/sitemap.xml

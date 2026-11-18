@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>My Punch Card | Thirsty Beaches</title>
+<meta name="description" content="Your Thirsty Beaches punch card. Buy ten drinks at the trailer and the eleventh is on us. Save it to your home screen and show it at the window.">
+<meta name="theme-color" content="#12032E">
+<link rel="canonical" href="https://thirstybeaches.com/card">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/assets/icon-192.png?v=logo20261018">
+<link rel="apple-touch-icon" href="/assets/icon-192.png?v=logo20261018">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Thirsty">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/styles.css?v=ux20261025">
+<style>
+  /* .pcard, not .card: the homepage .card tile has a ::before overlay that covered the Staff box */
+  .pcard{max-width:26rem;margin:0 auto;text-align:center}
+  .pcard img.mark{width:min(62%,13rem);margin:0 auto 1.4rem}
+  .punches{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;margin:1.6rem 0}
+  .p{aspect-ratio:1;border:1px solid var(--rule);border-radius:50%;display:grid;place-items:center;
+     font-family:"DM Mono",monospace;font-size:1rem;color:rgba(255,244,250,.72);
+     background:rgba(42,245,228,.04);transition:transform .3s,background .3s,box-shadow .3s}
+  .p.on{background:linear-gradient(180deg,var(--magenta),#C4177A);color:#fff;border-color:transparent;
+        box-shadow:0 0 18px rgba(255,60,172,.55)}
+  .p.pop{transform:scale(1.25)}
+  .free{border:1px solid rgba(255,209,102,.6);background:rgba(255,209,102,.12);padding:1.1rem;margin:1rem 0;
+        box-shadow:0 0 30px rgba(255,209,102,.3)}
+  .free b{display:block;font-family:"Bungee",sans-serif;color:var(--yellow);font-size:1.1rem}
+  .free small{display:block;margin-top:.3rem;font-family:"DM Mono",monospace;font-size:.875rem;letter-spacing:.08em;
+              text-transform:uppercase;color:rgba(255,244,250,.85)}
+  .staffbox{margin-top:1.8rem;border-top:1px solid var(--rule);padding-top:1.2rem}
+  .staffbox input{width:100%;background:rgba(42,245,228,.06);border:1px solid var(--rule);color:var(--foam);
+    padding:.8rem;font-family:"DM Mono",monospace;font-size:1rem;text-align:center;letter-spacing:.1em;
+    -webkit-text-security:disc}
+  .staffbox input::placeholder{-webkit-text-security:none;letter-spacing:.04em}
+  .staffbox summary{min-height:44px;display:flex;align-items:center;justify-content:center;
+    font-size:.9rem;color:rgba(255,244,250,.8);text-decoration:underline;text-underline-offset:.25em}
+  .staffbox .hint{font-size:.9rem;color:rgba(255,244,250,.8)}
+  .redeemrow{margin-top:1.4rem;padding-top:1rem;border-top:1px dashed rgba(255,209,102,.4)}
+  .qr{width:10.5rem;margin:.8rem auto .2rem;background:#fff;padding:.3rem}
+  .qr svg{display:block;width:100%;height:auto}
+  .msg{font-family:"DM Mono",monospace;font-size:1rem;min-height:2.2em;margin:.9rem 0 0}
+  .msg.wait{color:rgba(255,244,250,.6)}
+  .cid{margin-top:1.6rem;font-family:"DM Mono",monospace}
+  .cid small{display:block;font-size:.875rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,244,250,.75)}
+  .cid b{display:block;font-weight:500;font-size:1.05rem;letter-spacing:.12em;color:var(--foam);margin:.3rem 0;
+    user-select:all;-webkit-user-select:all}
+  .cid p{margin:.5rem 0 0;font-family:"Archivo",system-ui,sans-serif;font-size:.85rem;color:rgba(246,241,255,.7)}
+  .phonebox{margin-top:2rem;border-top:1px solid var(--rule);padding-top:1.4rem;text-align:left}
+  .ph__h{font-family:"Bungee",sans-serif;font-size:1.05rem;color:var(--yellow);margin:0 0 .4rem;font-weight:400}
+  .ph__p{margin:.3rem 0 .6rem;font-size:1rem;color:rgba(246,241,255,.8)}
+  .ph__saved{margin:0;font-size:1.15rem;font-weight:600;color:#3BE08A}
+  .ph__saved b{font-family:"DM Mono",monospace;font-weight:500;letter-spacing:.06em;color:var(--foam)}
+  .ph__in{width:100%;background:rgba(42,245,228,.06);border:1px solid var(--rule-ui);color:var(--foam);padding:.8rem;
+    font-size:1.05rem;margin:.3rem 0;font-family:"DM Mono",monospace}
+  .ph__in::placeholder{color:rgba(255,244,250,.6)}
+  .ph__code{-webkit-text-security:disc;text-align:center;letter-spacing:.1em}
+  .ph__code::placeholder{-webkit-text-security:none}
+  .ph__btn{width:100%;justify-content:center;margin-top:.4rem}
+  .ph__link{background:none;border:0;padding:0;min-height:44px;color:var(--cyan);font:inherit;font-size:1rem;text-decoration:underline;cursor:pointer}
+  .ph__rec{margin-top:1.2rem}
+  .ph__rec summary{min-height:44px;display:flex;align-items:center;cursor:pointer;color:var(--cyan);font-size:1rem;font-weight:600}
+  .msg.ok{color:#3BE08A}.msg.err{color:#FF6B6B}
+  .hint{font-family:"DM Mono",monospace;font-size:.875rem;letter-spacing:.08em;text-transform:uppercase;
+        color:rgba(255,244,250,.75);margin-top:1.4rem}
+  /* punch from a paid order (?claim=…): the "+N punches!" moment */
+  .claim{margin:1.4rem 0 0;padding:1.2rem 1rem 1.1rem;border:1px solid var(--cyan);background:rgba(42,245,228,.08);
+    box-shadow:0 0 34px rgba(42,245,228,.28),inset 0 0 24px rgba(42,245,228,.08)}
+  .claim__big{margin:0;font-family:"Bungee",sans-serif;font-synthesis:none;font-weight:400;font-size:clamp(2rem,9vw,2.6rem);line-height:1.1;
+    color:var(--yellow);text-shadow:0 0 18px rgba(255,209,102,.55),0 0 2px #FFD166}
+  .claim__sub{margin:.5rem 0 0;font-size:1.05rem;color:var(--foam)}
+  .claim.is-wait .claim__big{font-size:1.15rem;color:var(--cyan);text-shadow:none}
+  .claim.is-err{border-color:rgba(255,209,102,.7);background:rgba(255,209,102,.08);box-shadow:none}
+  .claim.is-err .claim__big{font-size:1.2rem;color:var(--yellow);text-shadow:none}
+  .claim.is-pop{animation:claimPop .55s cubic-bezier(.2,1.6,.4,1) both}
+  .claim.is-pop .claim__big{animation:claimGlow 1.6s ease-in-out .5s 2}
+  @keyframes claimPop{from{transform:scale(.6);opacity:0}to{transform:scale(1);opacity:1}}
+  @keyframes claimGlow{50%{text-shadow:0 0 34px rgba(255,209,102,.95),0 0 4px #FFD166}}
+  @media(prefers-reduced-motion:reduce){.claim.is-pop,.claim.is-pop .claim__big{animation:none}.p{transition:none}.p.pop{transform:none}}
+</style>
+  <meta property="og:site_name" content="Thirsty Beaches">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Thirsty Beaches Punch Card — buy 10 get 1 free">
+  <meta property="og:description" content="Ten drinks, eleventh on us. Add it to your home screen.">
+  <meta property="og:url" content="https://thirstybeaches.com/card">
+  <meta property="og:image" content="https://thirstybeaches.com/assets/og.jpg?v=logo20261018">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Thirsty Beaches neon logo: a cup with a straw, palm trees and a wave, with the Stay Thirsty, Beaches tagline.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Thirsty Beaches Punch Card — buy 10 get 1 free">
+  <meta name="twitter:description" content="Ten drinks, eleventh on us. Add it to your home screen.">
+  <meta name="twitter:image" content="https://thirstybeaches.com/assets/og.jpg?v=logo20261018">
+</head>
+<body>
+<a class="skip" href="#main">Skip to the punch card</a>
+<nav class="nav">
+  <a class="nav__mark" href="/" aria-label="Thirsty Beaches home"><picture><source type="image/webp" srcset="/assets/logo-nav.webp?v=logo20261018 1x, /assets/logo-nav@2x.webp?v=logo20261018 2x"><img src="/assets/logo-nav.png?v=logo20261018" srcset="/assets/logo-nav.png?v=logo20261018 1x, /assets/logo-nav@2x.png?v=logo20261018 2x" width="158" height="96" alt="Thirsty Beaches"></picture></a>
+  <div class="nav__links">
+    <a href="/menu">Menu</a>
+    <a href="/#build">Build</a>
+    <a href="/#find">Find Us</a>
+    <a href="/#stops">Stops</a>
+    <a class="nav__card" href="/card" aria-current="page">Punch Card</a>
+    <a class="nav__book" href="/utah-dirty-soda-catering">Book</a>
+  </div>
+</nav>
+
+<main id="main">
+<section class="band band--glow">
+  <div class="pcard">
+    <p class="eyebrow">Buy ten, get one</p>
+    <h1 class="h2">Your punch card</h1>
+    <p class="lede" style="margin-left:auto;margin-right:auto">Hand your phone over at the window and we'll punch it. Ten drinks, eleventh on us.</p>
+
+    <div class="claim" id="claimBox" role="status" aria-live="polite" hidden>
+      <p class="claim__big" id="claimBig"></p>
+      <p class="claim__sub" id="claimSub"></p>
+    </div>
+    <div class="punches" id="punches"></div>
+    <div id="freeBox"></div>
+
+    <details class="staffbox">
+      <summary class="hint" style="cursor:pointer">Staff: punch on this phone</summary>
+      <p class="hint" style="margin:.8rem 0 .6rem">Enter today’s staff code</p>
+      <label class="sr-only" for="staff">Staff code</label>
+      <input id="staff" type="text" inputmode="text" maxlength="24" placeholder="staff code" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" enterkeyhint="done">
+      <div class="actions" style="justify-content:center">
+        <button class="btn btn--solid" type="button" id="punchBtn">Punch +1</button>
+      </div>
+      <div class="redeemrow" id="redeemRow" hidden>
+        <button class="btn btn--ghost" type="button" id="redeemBtn">Use 1 free drink</button>
+      </div>
+    </details>
+    <p class="msg wait" id="msg" role="status" aria-live="polite"></p>
+
+    <div class="cid">
+      <small>Card ID · saved on this phone</small>
+      <b id="cid"></b>
+      <div class="qr" id="qr" aria-label="QR code of this card for staff to scan" role="img"></div>
+      <p>Staff can scan this with the trailer phone. Screenshot your card ID in case you switch phones.</p>
+    </div>
+
+    <section class="phonebox" id="phoneBox" aria-labelledby="phH">
+      <div id="phSaved" hidden>
+        <p class="ph__saved">Saved to <b id="phMask"></b></p>
+        <p class="ph__p">New phone or cleared browser? Use “Get my card back” below at the window.</p>
+        <button class="ph__link" type="button" id="phChange">Save it to a different number</button>
+      </div>
+      <form id="phForm" novalidate>
+        <h2 class="ph__h" id="phH">Save my card to my phone number</h2>
+        <p class="ph__p">If you switch phones or clear your browser, staff can bring your punches back. We only keep the last 4 digits readable.</p>
+        <label class="sr-only" for="phNum">Your phone number</label>
+        <input class="ph__in" id="phNum" type="tel" inputmode="tel" autocomplete="tel" placeholder="(801) 555-0123">
+        <button class="btn btn--ghost ph__btn" type="submit" id="phSave">Save my card</button>
+      </form>
+      <details class="ph__rec" id="phRec">
+        <summary>New phone? Get my card back</summary>
+        <p class="ph__p">Type the number you saved your card to, then hand this phone to staff for today’s code.</p>
+        <label class="sr-only" for="recNum">Phone number your card is saved to</label>
+        <input class="ph__in" id="recNum" type="tel" inputmode="tel" autocomplete="tel" placeholder="Your phone number">
+        <label class="sr-only" for="recStaff">Staff code</label>
+        <input class="ph__in ph__code" id="recStaff" type="text" inputmode="text" maxlength="24" placeholder="staff code" autocomplete="off" autocapitalize="characters">
+        <button class="btn btn--ghost ph__btn" type="button" id="recBtn">Get my card back</button>
+        <div id="recMerge" hidden>
+          <p class="ph__p" id="recMergeTxt"></p>
+          <button class="btn btn--solid ph__btn" type="button" id="recMergeBtn">Merge them (staff)</button>
+        </div>
+      </details>
+      <p class="msg" id="phMsg" role="status" aria-live="polite"></p>
+    </section>
+  </div>
+</section>
+</main>
+
+<script>
+const API='https://tb-where.nicholasroper.workers.dev';
+const $=id=>document.getElementById(id);
+
+/* storage can be blocked (private mode, strict settings): never let it break the page */
+const store={
+  get(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } },
+  set(k,v){ try{ localStorage.setItem(k,v); return true; }catch(e){ return false; } },
+};
+
+/* a card id that lives on this device */
+const KEY='tb-card-id', LAST='tb-card-last';
+let id=store.get(KEY), saved=true;
+if(!id){
+  id=[...crypto.getRandomValues(new Uint8Array(9))].map(b=>b.toString(36)).join('').slice(0,14);
+  saved=store.set(KEY,id) && store.get(KEY)===id;
+}
+/* full id, grouped so it can be read out (ids are lower-case a-z0-9, so upper-case is reversible) */
+$('cid').textContent=id.toUpperCase().match(/.{1,4}/g).join(' ');
+
+const say=(t,c='')=>{ const m=$('msg'); m.className='msg '+c; m.textContent=t; };
+
+function paint(card, popIndex){
+  card=card||{};
+  const punches=Math.max(0,Math.min(10,Number(card.punches)||0));
+  const redeemed=Math.max(0,Number(card.redeemed)||0);
+  const box=$('punches'); box.innerHTML='';
+  box.setAttribute('aria-label',punches+' of 10 punches');
+  for(let i=0;i<10;i++){
+    const d=document.createElement('div');
+    d.className='p'+(i<punches?' on':'');
+    d.textContent=i<punches?'★':(i+1);
+    if(popIndex===i) { d.classList.add('pop'); setTimeout(()=>d.classList.remove('pop'),320); }
+    box.appendChild(d);
+  }
+  $('redeemRow').hidden = redeemed<1;
+  $('freeBox').innerHTML = redeemed>0
+    ? `<div class="free"><b>${redeemed} FREE DRINK${redeemed>1?'S':''} READY</b>
+       <small>Show this at the window</small></div>` : '';
+}
+/* paint and remember, so the next visit (or a dead signal) shows the last known count */
+function show(card, popIndex){
+  if(!card || typeof card!=='object' || card.punches==null) return false;
+  paint(card, popIndex);
+  store.set(LAST, JSON.stringify({punches:card.punches, redeemed:card.redeemed, at:Date.now()}));
+  return true;
+}
+function cached(){ try{ return JSON.parse(store.get(LAST)||'null'); }catch(e){ return null; } }
+
+/* fetch + JSON that never throws on a bad body; only a real network failure throws */
+async function call(path, opts){
+  const r=await fetch(API+path, opts);
+  let d={}; try{ d=await r.json(); }catch(e){}
+  return {r, d: d||{}};
+}
+const post=(path, body)=>call(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+
+async function load(){
+  const last=cached();
+  paint(last||{punches:0,redeemed:0});            // ten circles straight away
+  say(last?'Updating your card…':'Loading your card…','wait');
+  const t=setTimeout(()=>say(last?'Slow signal — showing your last saved count':'Slow signal — still loading…','wait'),5000);
+  try{
+    const {r,d}=await call('/card?id='+id,{cache:'no-store'});
+    clearTimeout(t);
+    if(r.ok && d.mergedInto && /^[a-z0-9]{1,32}$/.test(d.mergedInto) && !load.hops){
+      load.hops=1; useCard(d.mergedInto);          // this card was merged into a saved one: follow it
+      return load();
+    }
+    if(r.ok && show(d)){ say(saved?'':'This browser won’t save your card ID. Screenshot it before you leave.', saved?'':'err'); return; }
+    say(last?'Couldn’t refresh your card — showing your last saved count':'Couldn’t load your card — try again in a bit','err');
+  }catch(e){
+    clearTimeout(t);
+    say(last?'Offline — showing your last saved count. It’ll sync when you’re back.':'Offline — your card will sync when you’re back','err');
+  }
+}
+
+let busy=false;
+async function staffAction(path, working){
+  const staff=$('staff').value.trim();
+  if(!staff){ say('Staff code needed','err'); $('staff').focus(); return null; }
+  if(busy) return null;
+  busy=true; say(working,'wait');
+  try{ return await post(path,{id,staff}); }
+  catch(e){ say('Network error — check signal and try again','err'); return null; }
+  finally{ busy=false; }
+}
+
+$('punchBtn').onclick=async()=>{
+  const res=await staffAction('/punch','Punching…'); if(!res) return;
+  const {r,d}=res;
+  if(r.status===401){ say('That staff code isn’t right for today','err'); return; }
+  if(r.status===429){ show(d.card); say('Just punched — try again in a few minutes','err'); return; }
+  if(!r.ok || !d.card){ say('Couldn’t punch right now — try again','err'); return; }
+  show(d.card, d.earned?undefined:d.card.punches-1);
+  say(d.earned?'THAT’S TEN — free drink unlocked 🎉':'Punched — '+d.card.punches+' of 10','ok');
+  $('staff').value='';
+};
+
+$('redeemBtn').onclick=async()=>{
+  if(!$('staff').value.trim()){ say('Staff code needed','err'); $('staff').focus(); return; }
+  if(!confirm('Use 1 free drink on this card?')) return;
+  const res=await staffAction('/card/redeem','Redeeming…'); if(!res) return;
+  const {r,d}=res;
+  if(r.status===401){ say('That staff code isn’t right for today','err'); return; }
+  if(d.error==='nothing-to-redeem' || d.error==='no-card'){ if(d.card) show(d.card); say('No free drink on this card yet','err'); return; }
+  if(!r.ok || !d.ok || !d.card){ say('Couldn’t redeem right now — try again','err'); return; }
+  show(d.card); say('Enjoy 🥤','ok'); $('staff').value='';
+};
+
+/* ---- punch from a paid order: /card?claim=<token> ----
+   The order tracker ("Add my punch") and the kiosk's "Scan for your punch" QR open this page with a token the
+   station signed for a paid order. Use this phone's card (made above if it's new), add the punches, celebrate,
+   and drop ?claim from the address so a reload or a shared link can't try it again. */
+const claimTok=(()=>{ try{ return new URLSearchParams(location.search).get('claim'); }catch(e){ return null; } })();
+const dropClaim=()=>{ try{ history.replaceState(null,'',location.pathname+location.hash); }catch(e){} };
+function claimSay(big, sub, kind){
+  const b=$('claimBox'); b.hidden=false; b.className='claim'+(kind?' is-'+kind:'');
+  $('claimBig').textContent=big; $('claimSub').textContent=sub||'';
+  if(kind==='pop'){ void b.offsetWidth; }
+}
+async function claim(token, retried){
+  claimSay('Adding your punches…','From your order','wait');
+  let r, d;
+  try{ ({r,d}=await post('/card/claim',{id,token})); }
+  catch(e){ claimSay('No signal right now','Reload this page when you’re back online to add your punches.','err'); return; }
+  if(r.status===409 && d.error==='merged' && /^[a-z0-9]{1,32}$/.test(d.into||'') && !retried){ useCard(d.into); return claim(token,true); }
+  if(r.status===429){ claimSay('Too many tries','Wait a few minutes, then reload this page.','err'); return; }
+  dropClaim();
+  if(r.ok && d.card){
+    const before=Math.max(0,(Number(d.card.punches)||0)-(Number(d.added)||0));
+    const n=Number(d.added)||1;
+    claimSay('+'+n+' punch'+(n===1?'':'es')+'!',
+      d.earned?('That’s ten — '+(d.earned>1?d.earned+' free drinks':'a free drink')+' unlocked. Show this at the window.')
+              :'From your order · now '+d.card.punches+' of 10','pop');
+    $('claimBox').classList.add('is-pop');
+    show(d.card);
+    say('');
+    /* light the new circles one by one (skipped when reduced motion is on) */
+    if(!d.earned && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+      paint({punches:before, redeemed:d.card.redeemed});
+      for(let i=before;i<d.card.punches;i++) setTimeout(()=>paint({punches:i+1, redeemed:d.card.redeemed}, i), 350+(i-before)*260);
+    }
+    $('claimBox').scrollIntoView({block:'center',behavior:'smooth'});
+    return;
+  }
+  if(r.status===409) return claimSay('Already added','The punches from this order are already on a card.','err');
+  if(r.status===410) return claimSay('This punch link expired','Punch links from orders last 7 days.','err');
+  if(r.status===503) return claimSay('Not switched on yet','Punches from orders aren’t on yet. Staff can punch your card at the window.','err');
+  claimSay('That punch link didn’t work','Open it again from your order page.','err');
+}
+
+load().then(()=>{ if(claimTok) claim(claimTok); });
+
+/* ---- save the card to a phone number / bring it back on a new phone ----
+   The worker keeps only a peppered hash of the number + its last 4 digits. */
+const PH4='tb-card-phone4';
+const mask=l4=>'(•••) •••-'+l4;
+const phSay=(t,c='')=>{ const m=$('phMsg'); m.className='msg '+c; m.textContent=t; };
+const usDigits=v=>{ const d=String(v||'').replace(/\D/g,''); return d.length===11&&d[0]==='1'?d.slice(1):d; };
+function phPaint(){
+  const l4=store.get(PH4);
+  $('phSaved').hidden=!l4; $('phForm').hidden=!!l4;
+  if(l4) $('phMask').textContent=mask(l4);
+}
+phPaint();
+$('phChange').onclick=()=>{ $('phSaved').hidden=true; $('phForm').hidden=false; $('phNum').focus(); };
+function useCard(newId, l4){
+  id=newId; store.set(KEY,id); if(l4) store.set(PH4,l4);
+  $('cid').textContent=id.toUpperCase().match(/.{1,4}/g).join(' ');
+  try{ $('qr').innerHTML=qrSvg((location.protocol==='https:'?location.origin:'https://thirstybeaches.com')+'/trailer#card='+id); }catch(e){}
+  phPaint();
+}
+$('phForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const d=usDigits($('phNum').value);
+  if(!/^[2-9]\d{2}[2-9]\d{6}$/.test(d)){ phSay('That doesn’t look like a US phone number','err'); $('phNum').focus(); return; }
+  phSay('Saving…','wait');
+  try{
+    const {r,d:res}=await post('/card/link',{id,phone:d});
+    if(r.ok && res.ok){ store.set(PH4,res.last4); phPaint(); phSay('Saved to '+mask(res.last4),'ok'); return; }
+    if(res.error==='no-card') return phSay('Get your first punch, then save your card here','err');
+    if(res.error==='linked-elsewhere'){
+      $('phRec').open=true; $('recNum').value=$('phNum').value;
+      return phSay('That number is already saved to another card. Staff can merge the two below: hand this phone over for today’s code.','err');
+    }
+    if(r.status===429) return phSay('Too many tries — wait a few minutes','err');
+    phSay('Couldn’t save right now — try again','err');
+  }catch(err){ phSay('Network error — check signal and try again','err'); }
+});
+async function recover(merge){
+  const d=usDigits($('recNum').value), staff=$('recStaff').value.trim();
+  if(!/^[2-9]\d{2}[2-9]\d{6}$/.test(d)){ phSay('Type the phone number your card is saved to','err'); $('recNum').focus(); return; }
+  if(!staff){ phSay('Staff code needed — hand this phone to staff','err'); $('recStaff').focus(); return; }
+  phSay(merge?'Merging…':'Looking for your card…','wait');
+  try{
+    const {r,d:res}=await post('/card/recover',{phone:d,staff,id,merge:!!merge});
+    if(r.status===401) return phSay('That staff code isn’t right for today','err');
+    if(r.status===429) return phSay('Too many tries — wait a few minutes','err');
+    if(res.error==='not-linked') return phSay('No card is saved to that number','err');
+    if(res.error==='has-punches'){
+      $('recMerge').hidden=false;
+      $('recMergeTxt').textContent='This phone’s card has '+res.here.punches+' punch'+(res.here.punches===1?'':'es')+(res.here.redeemed?' and '+res.here.redeemed+' free drink'+(res.here.redeemed>1?'s':''):'')+
+        '. The card saved to '+mask(res.last4)+' has '+res.saved.punches+(res.saved.redeemed?' + '+res.saved.redeemed+' free':'')+'. Merge them into one card?';
+      return phSay('');
+    }
+    if(!r.ok || !res.ok) return phSay('Couldn’t do that right now — try again','err');
+    useCard(res.id,res.last4);
+    $('recStaff').value=''; $('recMerge').hidden=true; $('phRec').open=false;
+    show(res.card);
+    phSay(res.merged?'Merged — one card, saved to '+mask(res.last4):'Your card is back — saved to '+mask(res.last4),'ok');
+    load();
+  }catch(err){ phSay('Network error — check signal and try again','err'); }
+}
+$('recBtn').onclick=()=>recover(false);
+$('recMergeBtn').onclick=()=>recover(true);
+
+/* the QR is just the staff link to this card: trailer page -> Punch a card */
+try{ $('qr').innerHTML=qrSvg((location.protocol==='https:'?location.origin:'https://thirstybeaches.com')+'/trailer#card='+id); }catch(e){ $('qr').remove(); }
+
+/* staff can punch from the trailer phone now: keep this card fresh while it's on screen
+   (reads only, every 15 s for 10 min after the page is opened or shown again) */
+let pollUntil=Date.now()+600000;
+setInterval(async()=>{
+  if(document.visibilityState!=='visible' || Date.now()>pollUntil || busy) return;
+  try{
+    const {r,d}=await call('/card?id='+id,{cache:'no-store'});
+    if(!r.ok || d.punches==null) return;
+    const sig=JSON.stringify({punches:d.punches,redeemed:d.redeemed});
+    const prev=cached()||{};
+    if(sig!==JSON.stringify({punches:prev.punches,redeemed:prev.redeemed})){
+      const more=d.punches>(prev.punches||0);
+      show(d, more?d.punches-1:undefined);
+      say(more?'Punched — '+d.punches+' of 10':(d.redeemed>(prev.redeemed||0)?'Free drink unlocked 🎉':'Card updated'),'ok');
+    }
+  }catch(e){}
+},15000);
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible'){ pollUntil=Date.now()+600000; } });
+
+/* tiny QR encoder (byte mode, error correction M, versions 1-10) -> SVG markup. Enough for a card link. */
+function qrSvg(text){
+  const ECC=[0,10,16,26,18,24,16,18,22,22,26], BLK=[0,1,1,1,2,2,4,4,4,5,5];
+  const data=[...new TextEncoder().encode(text)];
+  const raw=v=>{ let r=(16*v+128)*v+64; if(v>=2){ const n=Math.floor(v/7)+2; r-=(25*n-10)*n-55; if(v>=7) r-=36; } return r; };
+  const dcw=v=>Math.floor(raw(v)/8)-ECC[v]*BLK[v];
+  let ver=1; while(ver<=10 && 4+8+data.length*8>dcw(ver)*8) ver++;
+  if(ver>10) return '';
+  const bits=[]; const put=(v,n)=>{ for(let i=n-1;i>=0;i--) bits.push((v>>>i)&1); };
+  put(4,4); put(data.length,8); data.forEach(b=>put(b,8));
+  const cap=dcw(ver)*8; put(0,Math.min(4,cap-bits.length)); while(bits.length%8) bits.push(0);
+  for(let p=0xEC;bits.length<cap;p^=0xEC^0x11) put(p,8);
+  const cw=[]; for(let i=0;i<bits.length;i+=8) cw.push(bits.slice(i,i+8).reduce((a,b)=>a*2+b,0));
+  const mul=(x,y)=>{ let z=0; for(let i=7;i>=0;i--){ z=(z<<1)^((z>>>7)*0x11D); z^=((y>>>i)&1)*x; } return z; };
+  const deg=ECC[ver]; const div=Array(deg).fill(0); div[deg-1]=1; let root=1;
+  for(let i=0;i<deg;i++){ for(let j=0;j<deg;j++){ div[j]=mul(div[j],root); if(j+1<deg) div[j]^=div[j+1]; } root=mul(root,2); }
+  const rem=d=>{ const r=Array(deg).fill(0); for(const b of d){ const f=b^r.shift(); r.push(0); div.forEach((c,i)=>r[i]^=mul(c,f)); } return r; };
+  const nb=BLK[ver], rc=Math.floor(raw(ver)/8), ns=nb-rc%nb, sl=Math.floor(rc/nb), blocks=[];
+  for(let i=0,k=0;i<nb;i++){ const d=cw.slice(k,k+sl-deg+(i<ns?0:1)); k+=d.length; const e=rem(d); if(i<ns) d.push(0); blocks.push(d.concat(e)); }
+  const all=[]; for(let i=0;i<blocks[0].length;i++) blocks.forEach((b,j)=>{ if(i!==sl-deg||j>=ns) all.push(b[i]); });
+  const N=ver*4+17, M=[...Array(N)].map(()=>Array(N).fill(false)), F=[...Array(N)].map(()=>Array(N).fill(false));
+  const set=(x,y,d)=>{ M[y][x]=d; F[y][x]=true; };
+  for(let i=0;i<N;i++){ set(6,i,i%2===0); set(i,6,i%2===0); }
+  for(const [cx,cy] of [[3,3],[N-4,3],[3,N-4]]) for(let dy=-4;dy<=4;dy++) for(let dx=-4;dx<=4;dx++){
+    const x=cx+dx,y=cy+dy, d=Math.max(Math.abs(dx),Math.abs(dy)); if(x>=0&&x<N&&y>=0&&y<N) set(x,y,d!==2&&d!==4); }
+  if(ver>1){ const na=Math.floor(ver/7)+2, step=Math.ceil((ver*4+4)/(na*2-2))*2, pos=[6];
+    for(let p=N-7;pos.length<na;p-=step) pos.splice(1,0,p);
+    pos.forEach((x,i)=>pos.forEach((y,j)=>{ if((i===0&&j===0)||(i===0&&j===na-1)||(i===na-1&&j===0)) return;
+      for(let dy=-2;dy<=2;dy++) for(let dx=-2;dx<=2;dx++) set(x+dx,y+dy,Math.max(Math.abs(dx),Math.abs(dy))!==1); })); }
+  const fmt=mask=>{ const d=(0<<3)|mask; let r=d; for(let i=0;i<10;i++) r=(r<<1)^((r>>>9)*0x537); const b=((d<<10)|r)^0x5412, g=i=>((b>>>i)&1)===1;
+    for(let i=0;i<=5;i++) set(8,i,g(i)); set(8,7,g(6)); set(8,8,g(7)); set(7,8,g(8));
+    for(let i=9;i<15;i++) set(14-i,8,g(i)); for(let i=0;i<8;i++) set(N-1-i,8,g(i)); for(let i=8;i<15;i++) set(8,N-15+i,g(i)); set(8,N-8,true); };
+  const ver7=()=>{ if(ver<7) return; let r=ver; for(let i=0;i<12;i++) r=(r<<1)^((r>>>11)*0x1F25); const b=(ver<<12)|r;
+    for(let i=0;i<18;i++){ const d=((b>>>i)&1)===1, a=N-11+i%3, c=Math.floor(i/3); set(a,c,d); set(c,a,d); } };
+  fmt(0); ver7();
+  let i=0; for(let right=N-1;right>=1;right-=2){ if(right===6) right=5;
+    for(let v=0;v<N;v++) for(let j=0;j<2;j++){ const x=right-j, up=((right+1)&2)===0, y=up?N-1-v:v;
+      if(!F[y][x] && i<all.length*8){ M[y][x]=((all[i>>>3]>>>(7-(i&7)))&1)===1; i++; } } }
+  const MASK=[(x,y)=>(x+y)%2===0,(x,y)=>y%2===0,(x,y)=>x%3===0,(x,y)=>(x+y)%3===0,(x,y)=>(Math.floor(x/3)+Math.floor(y/2))%2===0,
+    (x,y)=>x*y%2+x*y%3===0,(x,y)=>(x*y%2+x*y%3)%2===0,(x,y)=>((x+y)%2+x*y%3)%2===0];
+  const apply=m=>{ for(let y=0;y<N;y++) for(let x=0;x<N;x++) if(!F[y][x]&&MASK[m](x,y)) M[y][x]=!M[y][x]; };
+  const penalty=()=>{ let p=0, dark=0; const line=get=>{ let run=1; for(let k=1;k<N;k++){ if(get(k)===get(k-1)){ run++; if(run===5) p+=3; else if(run>5) p++; } else run=1; }
+      const s=[...Array(N)].map((_,k)=>get(k)?1:0).join(''); for(const pat of ['10111010000','00001011101']){ let at=s.indexOf(pat); while(at>=0){ p+=40; at=s.indexOf(pat,at+1); } } };
+    for(let y=0;y<N;y++) line(k=>M[y][k]); for(let x=0;x<N;x++) line(k=>M[k][x]);
+    for(let y=0;y<N-1;y++) for(let x=0;x<N-1;x++){ const c=M[y][x]; if(c===M[y][x+1]&&c===M[y+1][x]&&c===M[y+1][x+1]) p+=3; }
+    for(let y=0;y<N;y++) for(let x=0;x<N;x++) if(M[y][x]) dark++;
+    return p+Math.floor(Math.abs(dark*20-N*N*10)/(N*N))*10; };
+  let best=0, bestP=Infinity;
+  for(let m=0;m<8;m++){ apply(m); fmt(m); const p=penalty(); if(p<bestP){ bestP=p; best=m; } apply(m); }
+  apply(best); fmt(best);
+  let path=''; for(let y=0;y<N;y++) for(let x=0;x<N;x++) if(M[y][x]) path+='M'+(x+4)+','+(y+4)+'h1v1h-1z';
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '+(N+8)+' '+(N+8)+'" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#fff"/><path d="'+path+'" fill="#000"/></svg>';
+}
+</script>
+
+<footer class="foot">
+  <span>Stay Thirsty, Beaches</span>
+  <span class="socials">
+    <a class="soc" href="https://www.instagram.com/thirstybeaches_fl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.1A6.7 6.7 0 1 0 18.7 12 6.7 6.7 0 0 0 12 5.3zm0 11A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.9-11.2a1.6 1.6 0 1 1-1.6-1.6 1.6 1.6 0 0 1 1.6 1.6z"/></svg></a>
+    <a class="soc" href="https://www.tiktok.com/@thirstybeachesflorida" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 5.2a4.9 4.9 0 0 0 3.4 1.4v2.6a7.5 7.5 0 0 1-3.9-1.1v5.6a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.7a2.9 2.9 0 1 0 2 2.8V2h2.6a4.9 4.9 0 0 0 .6 3.2z"/></svg></a>
+    <a class="soc" href="https://www.facebook.com/people/Thirsty-Beaches/100077594055245/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+  </span>
+  <span>&copy; <span class="yr">2026</span> Thirsty Beaches</span>
+</footer>
+
+<script src="/app.js?v=ux20261025" defer></script>
+<script src="/sw-register.js" defer></script>
+</body>
+</html>

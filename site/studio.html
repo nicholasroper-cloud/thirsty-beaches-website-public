@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Content Studio — Thirsty Beaches</title>
+<meta name="theme-color" content="#12032E">
+<link rel="icon" href="/assets/icon-192.png?v=logo20261018">
+<link rel="apple-touch-icon" href="/assets/icon-192.png?v=logo20261018">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Studio">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/styles.css?v=ux20261025">
+<style>
+  .studio{max-width:44rem;margin:0 auto}
+  .pick{display:flex;flex-wrap:wrap;gap:.5rem;margin:1.2rem 0}
+  .pick button{font-family:"DM Mono",monospace;font-size:.68rem;letter-spacing:.12em;
+    text-transform:uppercase;padding:.55rem .85rem;border:1px solid var(--rule);
+    background:transparent;color:rgba(255,244,250,.75);cursor:pointer;transition:all .2s}
+  .pick button:hover{border-color:rgba(42,245,228,.6);color:var(--cyan)}
+  .pick button[aria-pressed="true"]{background:rgba(255,60,172,.16);
+    border-color:var(--magenta);color:#fff}
+  .out{border:1px solid var(--rule);background:rgba(18,3,46,.65);padding:1.2rem;margin:1rem 0}
+  .out h4{font-family:"DM Mono",monospace;font-size:.64rem;letter-spacing:.2em;
+    text-transform:uppercase;color:var(--cyan);margin:0 0 .6rem;display:flex;
+    justify-content:space-between;align-items:center}
+  .out h4 button{font-family:"DM Mono",monospace;font-size:.58rem;letter-spacing:.14em;
+    background:none;border:1px solid var(--rule);color:rgba(255,244,250,.7);
+    padding:.3rem .6rem;cursor:pointer}
+  .out h4 button:hover{color:var(--magenta);border-color:rgba(255,60,172,.6)}
+  .out p{margin:0 0 .7rem;white-space:pre-wrap;line-height:1.65}
+  .tags{font-family:"DM Mono",monospace;font-size:.74rem;color:var(--cyan);
+    word-break:break-word;line-height:1.8}
+  .cal{width:100%;border-collapse:collapse;margin-top:1rem;font-size:.85rem}
+  .cal th{font-family:"DM Mono",monospace;font-size:.6rem;letter-spacing:.16em;
+    text-transform:uppercase;color:var(--cyan);text-align:left;padding:.5rem .4rem;
+    border-bottom:1px solid var(--rule)}
+  .cal td{padding:.55rem .4rem;border-bottom:1px dotted rgba(255,244,250,.12);vertical-align:top}
+  .cal td:first-child{white-space:nowrap;font-family:"DM Mono",monospace;
+    font-size:.7rem;color:rgba(255,244,250,.55)}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a class="nav__mark" href="/" aria-label="Home"><img src="/assets/logo-nav.png?v=logo20261018" srcset="/assets/logo-nav.png?v=logo20261018 1x, /assets/logo-nav@2x.png?v=logo20261018 2x" width="248" height="132" alt="Thirsty Beaches"></a>
+  <div class="nav__links"><a href="/">Home</a><a href="/trailer.html">Trailer</a></div>
+</nav>
+
+<section class="band band--glow">
+  <div class="studio">
+    <p class="eyebrow">Staff only</p>
+    <h1 class="h2">Content Studio</h1>
+    <p class="lede">Pick what you're posting about. It writes the caption, the hook and the hashtags — copy them straight into Business Suite or TikTok.</p>
+
+    <div class="pick" id="platform">
+      <button type="button" data-p="instagram" aria-pressed="true">Instagram</button>
+      <button type="button" data-p="tiktok">TikTok</button>
+      <button type="button" data-p="facebook">Facebook</button>
+    </div>
+
+    <div class="pick" id="angle">
+      <button type="button" data-a="drink" aria-pressed="true">A drink</button>
+      <button type="button" data-a="location">Where we are</button>
+      <button type="button" data-a="behind">Behind the scenes</button>
+      <button type="button" data-a="loyalty">Punch card</button>
+      <button type="button" data-a="game">The game</button>
+      <button type="button" data-a="weather">Hot day</button>
+    </div>
+
+    <div class="actions" style="justify-content:flex-start">
+      <button class="btn btn--solid" type="button" id="go">Write me a post</button>
+      <button class="btn btn--ghost" type="button" id="week">Plan my week</button>
+    </div>
+
+    <div id="result"></div>
+  </div>
+</section>
+
+<footer class="foot"><span>Content Studio</span><span>&copy; <span class="yr">2026</span> Thirsty Beaches</span></footer>
+
+<script src="/studio.js?v=ux20261025"></script>
+<script src="/app.js?v=ux20261025" defer></script>
+</body>
+</html>

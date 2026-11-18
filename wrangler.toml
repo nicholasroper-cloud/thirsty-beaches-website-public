@@ -1,0 +1,12 @@
+name = "thirsty-beaches"
+compatibility_date = "2026-08-09"
+pages_build_output_dir = "site"
+
+# Workers AI — powers POST /api/mix (AI-invented drink builds). See functions/api/mix.js.
+[ai]
+binding = "AI"
+
+# AI rate-limit counters only (ai:ip:<hash>); not customer/order data.
+[[kv_namespaces]]
+binding = "AI_RL"
+id = "58a72aee80dc4386802cfe31805585f6"

@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dirty Soda Menu, Floats &amp; Soft Serve | Thirsty Beaches</title>
+<meta name="description" content="The Thirsty Beaches menu with prices: dirty sodas, soft-serve floats, espresso, lemonades, energy drinks, kids&#39; sizes and freeze-dried candy.">
+<meta name="theme-color" content="#08011C">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/icon-192.png?v=logo20261018">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Thirsty">
+<link rel="apple-touch-icon" href="/assets/icon-192.png?v=logo20261018">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap"></noscript>
+<link rel="stylesheet" href="/styles.css?v=ux20261025">
+<style>
+  /* Today's specials: from the Control repo's kiosk-control.json (same list the kiosk features); hidden when empty */
+  .specials{margin:1.6rem 0 0}
+  .specials__h{font-family:"Bungee",sans-serif;font-synthesis:none;font-weight:400;font-size:clamp(1.15rem,4.6vw,1.45rem);
+    color:var(--yellow);margin:0;text-shadow:0 0 16px rgba(255,209,102,.35)}
+  .specials__list{list-style:none;margin:.7rem 0 0;padding:0;display:grid;gap:.75rem;grid-template-columns:repeat(auto-fit,minmax(16rem,1fr))}
+  .sp{border:1px solid rgba(255,60,172,.7);background:linear-gradient(160deg,rgba(255,60,172,.14),rgba(27,5,56,.7) 60%);
+    padding:1rem 1.1rem;box-shadow:0 0 26px rgba(255,60,172,.22)}
+  .sp__tag{display:inline-block;font-family:"DM Mono",monospace;font-size:.8125rem;letter-spacing:.1em;text-transform:uppercase;
+    color:#1B0538;background:var(--cyan);padding:.2rem .5rem;margin:0 0 .45rem}
+  .sp__n{display:block;font-family:"Bungee",sans-serif;font-synthesis:none;font-weight:400;font-size:1.25rem;line-height:1.2;color:var(--foam)}
+  .sp__d{margin:.35rem 0 0;font-size:1rem;color:#E9DEF7}
+  .sp__i{margin:.45rem 0 0;font-family:"DM Mono",monospace;font-size:.875rem;color:#CBBEE6}
+  .sp.is-out{border-color:rgba(203,190,230,.45);box-shadow:none;background:rgba(27,5,56,.6)}
+  .sp.is-out .sp__n{color:#CBBEE6}
+  .sp__out{display:inline-block;margin:.5rem 0 0;font-family:"DM Mono",monospace;font-size:.8125rem;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--yellow);border:1px solid rgba(255,209,102,.6);padding:.15rem .45rem}
+</style>
+  <link rel="canonical" href="https://thirstybeaches.com/menu">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Menu", "@id": "https://thirstybeaches.com/menu#menu", "name": "Thirsty Beaches Menu", "url": "https://thirstybeaches.com/menu", "inLanguage": "en-US", "hasMenuSection": [{"@type": "MenuSection", "name": "Dirty Sodas", "hasMenuItem": [{"@type": "MenuItem", "name": "Butter Me Up", "description": "Root beer, butterscotch, vanilla cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Cake Walk", "description": "Dr Pepper, cupcake, strawberry purée, vanilla cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Cherry on Top", "description": "Pepsi, cherry, coconut, vanilla cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Cran-Do Attitude", "description": "Diet Coke, cranberry, fresh lime", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Dew or Die", "description": "Mountain Dew, pineapple, fresh lime, raspberry purée, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Dirty Little Secret", "description": "Dr Pepper, coconut, fresh lime, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Fling on the Beach", "description": "Dr Pepper, vanilla, strawberry purée, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Fruit Loop Lagoon", "description": "Sprite, strawberry, watermelon, peach", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Guava Lava", "description": "Mountain Dew, guava, strawberry, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Hula Hottie", "description": "Sprite, lemonade, mango, pineapple, strawberry, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Just Beachy", "description": "Dr Pepper, vanilla, peach, half & half", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Nice Coconuts", "description": "Coke, coconut, fresh lime, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "No Regrets", "description": "Diet Dr Pepper, sugar free vanilla, sugar free coconut", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "One in a Melon", "description": "Mountain Dew, mango, watermelon, coconut cream, passion fruit popping pearls", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Peach Please", "description": "Sprite, peach, strawberry purée, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Pink Bikini", "description": "Fresca, peach, strawberry, raspberry, fresh lemon", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Pour Decisions", "description": "Build your own: pick the base, the syrup and the cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Razzle My Berries", "description": "Sprite, raspberry, vanilla cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Salt Life", "description": "Mountain Dew, pomegranate, grapefruit, fresh lime", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Shark Bait", "description": "Mountain Dew, mango purée, strawberry purée", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Sunset on the Rocks", "description": "Dr Pepper, raspberry, peach, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Sweet Cheeks", "description": "Coke, peach, coconut", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Tan Lines", "description": "Fresca, passion fruit, fresh orange, mango purée, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Thirst Trap", "description": "Dr Pepper, coconut, sweet cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Tropic Like It's Hot", "description": "Sprite, pineapple, coconut, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Upside-Down & Dirty", "description": "Dr Pepper, cherry, pineapple, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}]}, {"@type": "MenuSection", "name": "Seasonal", "hasMenuItem": [{"@type": "MenuItem", "name": "Apple of My Thighs", "description": "Blended diet Mountain Dew, green apple, green apple purée, caramel drizzle", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Boo-tea Call", "description": "Lemonade, blackberry, grape, fresh lime", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Cider Beaches", "description": "Sprite, green apple, cinnamon, fresh lemon", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Crush On You", "description": "Sprite, raspberry, strawberry purée, vanilla cream", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Fall Back & Relax", "description": "Root beer, cinnamon, vanilla cream, cinnamon stick", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Frosty the Snowcone", "description": "Blended lemonade, blue raspberry, coconut cream", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Ghosted", "description": "Cream soda, vanilla, coconut cream, whipped cream", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Gourd Vibes Only", "description": "Dr Pepper, vanilla, pumpkin sauce, coconut cream", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Harvest Moon", "description": "Apple, raspberry, mango purée, vanilla cream", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Hayride Hottie", "description": "Coke, caramel, apple, half & half", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Jingle Juice", "description": "Sprite, cranberry, pomegranate, fresh lime", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Love Potion No. 9", "description": "Dr Pepper, raspberry, chocolate strawberry cream", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Naughty & Nice", "description": "Coke, cherry, vanilla, coconut cream", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Pumpkin Spice & Everything Dirty", "description": "Dr Pepper, vanilla, cinnamon, pumpkin sauce, half & half, cinnamon stick", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Sleigh All Day", "description": "Dr Pepper, peppermint, vanilla, half & half", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Spice Spice Beachy", "description": "Energy base, cinnamon, pumpkin sauce, vanilla cream", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Sweater Weather", "description": "Root beer, toasted marshmallow, butterscotch, vanilla cream", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "The Graveyard Shift", "description": "Energy base, black cherry, chamoy drizzle", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Witch Better Have My Candy", "description": "Sprite, blue raspberry, gummy worms, Sour Patch bits", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}]}, {"@type": "MenuSection", "name": "Refreshers", "hasMenuItem": [{"@type": "MenuItem", "name": "Berry Breezy", "description": "Sugar-free coconut, sugar-free vanilla, strawberry purée, frozen strawberry, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Cannonball", "description": "Sparkling water, sugar free pineapple, strawberry purée, fresh lemon", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Flamingle", "description": "Guava, grapefruit, fresh orange", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Mango Tango", "description": "Sugar-free coconut, sugar-free vanilla, mango purée, frozen mango, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Rash Guard", "description": "Sugar-free vanilla, sugar-free peach, sugar-free pineapple, fresh lime, raspberry purée", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Spa Day", "description": "Sugar free coconut, sugar free vanilla, frozen strawberry, frozen mango", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Unsinkable", "description": "Grapefruit, mango purée, fresh lemon", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}]}, {"@type": "MenuSection", "name": "Coffee", "hasMenuItem": [{"@type": "MenuItem", "name": "Basic Beach", "description": "Americano: espresso and hot water", "offers": {"@type": "Offer", "price": "4.25", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Beach & Bothered", "description": "Caramel sea-salt latte", "offers": {"@type": "Offer", "price": "5.50", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Beach Drip", "description": "Fresh-brewed drip coffee", "offers": {"@type": "Offer", "price": "2.95", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Beach S'mores", "description": "Hot chocolate, whipped cream, graham crumble", "offers": {"@type": "Offer", "price": "4.50", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "But First, Caffeine", "description": "Vanilla-coconut latte", "offers": {"@type": "Offer", "price": "5.25", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Cappa-Cabana", "description": "Cappuccino", "offers": {"@type": "Offer", "price": "4.75", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Cloud Nine", "description": "Cold brew with sweet cream cold foam", "offers": {"@type": "Offer", "price": "5.25", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Coco Loco Mocha", "description": "Coconut mocha, hot or iced", "offers": {"@type": "Offer", "price": "5.50", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Espresso Yourself", "description": "Single or double shot", "offers": {"@type": "Offer", "price": "3.25", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Hot Mess", "description": "Hot chocolate", "offers": {"@type": "Offer", "price": "3.95", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Salted Caramel Cloud", "description": "Cold brew with salted caramel cold foam", "offers": {"@type": "Offer", "price": "5.50", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Wake & Shake", "description": "Iced latte, your pick of syrup", "offers": {"@type": "Offer", "price": "5.25", "priceCurrency": "USD"}}]}, {"@type": "MenuSection", "name": "New Waves", "hasMenuItem": [{"@type": "MenuItem", "name": "Beach Buzz", "description": "Espresso tonic over ice with lime", "offers": {"@type": "Offer", "price": "4.95", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Beach Sting", "description": "Lemonade, hot honey, fresh lemon", "offers": {"@type": "Offer", "price": "4.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Castaway", "description": "Coke, coconut, coconut cream", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Feelin' Frisky", "description": "Sprite, coconut, blue raspberry, fresh lime", "offers": {"@type": "Offer", "price": "4.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Golden Hour", "description": "Orange soda, vanilla, sweet cream", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Lazy River", "description": "Root beer, vanilla cream", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Low Tide", "description": "Coconut water with citrus", "offers": {"@type": "Offer", "price": "4.95", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Pearl Diver", "description": "Lemonade with popping pearls", "offers": {"@type": "Offer", "price": "4.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Spicy Señorita", "description": "Sprite, mango, mango purée, chamoy, Tajín rim", "offers": {"@type": "Offer", "price": "6.95", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Sunburn", "description": "Dr Pepper, cherry, cinnamon", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Wipeout", "description": "Sprite, blue raspberry, sour", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}]}, {"@type": "MenuSection", "name": "Lemonades", "hasMenuItem": [{"@type": "MenuItem", "name": "Easy, Tiger", "description": "Lemonade, raspberry, raspberry purée", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Kiss & Tell", "description": "Lemonade, mango, mango purée", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Main Squeeze", "description": "Lemonade, strawberry, strawberry purée", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Pink Flamingo", "description": "Lemonade, guava, grapefruit, fresh orange", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "When Life Gives You Beaches", "description": "Lemonade, coconut, fresh lime", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}]}, {"@type": "MenuSection", "name": "Italian Sodas", "hasMenuItem": [{"@type": "MenuItem", "name": "Feelin' Blue", "description": "Sparkling water, blue raspberry, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Fizzy Business", "description": "Sparkling water, cherry, fresh lime", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "La Dolce Beach", "description": "Sparkling water, vanilla, coconut, coconut cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}]}, {"@type": "MenuSection", "name": "Rescue – Energy Drinks", "hasMenuItem": [{"@type": "MenuItem", "name": "Adios, Beaches", "description": "Energy base, coconut, pineapple, blue raspberry", "offers": {"@type": "Offer", "price": "4.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Cloud Surfer", "description": "Energy base, raspberry, blue raspberry, vanilla, vanilla cream", "offers": {"@type": "Offer", "price": "4.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Lemon Drop Kick", "description": "Sugar free energy base, fresh lemon, frozen strawberries", "offers": {"@type": "Offer", "price": "4.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Passion Pit", "description": "Energy base, passion fruit, peach, strawberry, mango purée", "offers": {"@type": "Offer", "price": "4.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Peach Out", "description": "Energy base blended with ice, then peach, coconut and coconut cream", "offers": {"@type": "Offer", "price": "4.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Piña Collider", "description": "Sugar free energy base, ginger ale, sugar-free coconut, sugar-free pineapple, mango purée, coconut cream", "offers": {"@type": "Offer", "price": "4.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Rise & Grind", "description": "Energy base, strawberry, peach, fresh orange", "offers": {"@type": "Offer", "price": "4.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Skinny Dippin'", "description": "Sugar-free energy base, sugar-free peach", "offers": {"@type": "Offer", "price": "4.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Wet & Wild", "description": "Energy base, blue raspberry, coconut, fresh lime", "offers": {"@type": "Offer", "price": "4.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Wired & Tired", "description": "Energy base, passion fruit, guava, banana", "offers": {"@type": "Offer", "price": "4.99", "priceCurrency": "USD"}}]}, {"@type": "MenuSection", "name": "Soft Serve", "hasMenuItem": [{"@type": "MenuItem", "name": "Float On", "description": "Soft serve dropped into juice or soda", "offers": {"@type": "Offer", "price": "6.00", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Pineapple Express", "description": "Classic pineapple soft serve", "offers": {"@type": "Offer", "price": "5.50", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Swirl Power", "description": "Pineapple and vanilla soft serve, twisted", "offers": {"@type": "Offer", "price": "5.50", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Vanilla Vibes", "description": "Creamy vanilla soft serve", "offers": {"@type": "Offer", "price": "5.00", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Whip It Good", "description": "Soft serve loaded with every topping", "offers": {"@type": "Offer", "price": "6.50", "priceCurrency": "USD"}}]}, {"@type": "MenuSection", "name": "Floats", "hasMenuItem": [{"@type": "MenuItem", "name": "Build Your Own Float", "description": "Pick a base, pick a soft-serve cap, load it up", "offers": {"@type": "Offer", "price": "5.95", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Cold Shoulder", "description": "Dirty Dr Pepper under salted cold foam", "offers": {"@type": "Offer", "price": "6.50", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Riptide", "description": "Red, white and blue layered float", "offers": {"@type": "Offer", "price": "6.50", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Sandy Bottom", "description": "Pineapple soft serve over your soda of choice", "offers": {"@type": "Offer", "price": "6.50", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Thicc & Thirsty", "description": "Protein float", "offers": {"@type": "Offer", "price": "7.50", "priceCurrency": "USD"}}]}, {"@type": "MenuSection", "name": "Beach Babies", "hasMenuItem": [{"@type": "MenuItem", "name": "Beach Ball", "description": "Fruit punch with popping pearls", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Cotton Candy Cloud", "description": "Lemonade, cotton candy, whipped cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Lil' Root Beer Float", "description": "Root beer with vanilla soft serve", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Lil' Squirt", "description": "Sprite, strawberry purée", "offers": {"@type": "Offer", "price": "2.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Mermaid Splash", "description": "Lemonade, blue raspberry, whipped cream", "offers": {"@type": "Offer", "price": "3.49", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Sandcastle Shake", "description": "Vanilla soft-serve shake", "offers": {"@type": "Offer", "price": "4.50", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Sharky", "description": "Ask at the window", "offers": {"@type": "Offer", "price": "2.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Shore Temple", "description": "Sprite, cherry, grenadine", "offers": {"@type": "Offer", "price": "2.99", "priceCurrency": "USD"}}]}, {"@type": "MenuSection", "name": "Treats", "hasMenuItem": [{"@type": "MenuItem", "name": "Freeze-Dried Candy - Large", "description": "Party bag, made in house, flavors rotate", "offers": {"@type": "Offer", "price": "9.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Freeze-Dried Candy - Medium", "description": "Share bag, made in house, flavors rotate", "offers": {"@type": "Offer", "price": "5.99", "priceCurrency": "USD"}}, {"@type": "MenuItem", "name": "Freeze-Dried Candy - Small", "description": "Snack bag, made in house, flavors rotate", "offers": {"@type": "Offer", "price": "3.99", "priceCurrency": "USD"}}]}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://thirstybeaches.com/"}, {"@type": "ListItem", "position": 2, "name": "Menu", "item": "https://thirstybeaches.com/menu"}]}</script>
+  <meta property="og:site_name" content="Thirsty Beaches">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="The Thirsty Beaches Menu — 114 drinks">
+  <meta property="og:description" content="Dirty sodas, coffee, soft serve, floats, lemonades and freeze-dried candy.">
+  <meta property="og:url" content="https://thirstybeaches.com/menu">
+  <meta property="og:image" content="https://thirstybeaches.com/assets/og.jpg?v=logo20261018">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Thirsty Beaches neon logo: a cup with a straw, palm trees and a wave, with the Stay Thirsty, Beaches tagline.">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Thirsty Beaches Menu — 114 drinks">
+  <meta name="twitter:description" content="Dirty sodas, coffee, soft serve, floats, lemonades and freeze-dried candy.">
+  <meta name="twitter:image" content="https://thirstybeaches.com/assets/og.jpg?v=logo20261018">
+<link rel="alternate" type="text/markdown" href="/menu.md">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to the drinks</a>
+<div class="glow" aria-hidden="true"></div>
+
+<nav class="nav">
+  <a class="nav__mark" href="/" aria-label="Thirsty Beaches home"><picture><source type="image/webp" srcset="/assets/logo-nav.webp?v=logo20261018 1x, /assets/logo-nav@2x.webp?v=logo20261018 2x"><img src="/assets/logo-nav.png?v=logo20261018" srcset="/assets/logo-nav.png?v=logo20261018 1x, /assets/logo-nav@2x.png?v=logo20261018 2x" width="158" height="96" alt="Thirsty Beaches"></picture></a>
+  <div class="nav__links">
+    <a href="/menu" aria-current="page">Menu</a>
+    <a href="/#build">Build</a>
+    <a href="/#find">Find Us</a>
+    <a href="/#stops">Stops</a>
+    <a class="nav__card" href="/card">Punch Card</a>
+    <a class="nav__book" href="/utah-dirty-soda-catering">Book</a>
+  </div>
+</nav>
+
+<main id="main">
+<section class="band band--glow">
+  <div class="wrap">
+    <p class="eyebrow">Thirsty Beaches</p>
+    <h1 class="h2">The Menu</h1>
+    <p class="lede">114 drinks, every one built to order. Sizes, syrups, cream and toppings are yours to pick at the window.</p>
+    <p class="oa-menu" data-order-ahead hidden><a class="btn btn--solid btn--order" href="https://station.thirstybeaches.com/order">Order ahead &middot; skip the line</a><span>We&#39;re open now. Order and pay on your phone, pick up at the window.</span></p>
+
+    <section class="specials" id="specials" aria-labelledby="specialsH" hidden>
+      <h2 class="specials__h" id="specialsH">Today’s specials</h2>
+      <ul class="specials__list" id="specialsList"></ul>
+    </section>
+
+    <div class="menu__bar" id="menuBar">
+    <div class="filters">
+      <button class="pill" type="button" data-cat="all" aria-pressed="true">All</button>
+      <button class="pill" type="button" data-cat="dirty-sodas">Dirty Sodas</button>
+      <button class="pill" type="button" data-cat="seasonal">Seasonal</button>
+      <button class="pill" type="button" data-cat="refreshers">Refreshers</button>
+      <button class="pill" type="button" data-cat="coffee">Coffee</button>
+      <button class="pill" type="button" data-cat="new-waves">New Waves</button>
+      <button class="pill" type="button" data-cat="lemonades">Lemonades</button>
+      <button class="pill" type="button" data-cat="italian-sodas">Italian Sodas</button>
+      <button class="pill" type="button" data-cat="rescue-energy-drinks">Rescue – Energy Drinks</button>
+      <button class="pill" type="button" data-cat="soft-serve">Soft Serve</button>
+      <button class="pill" type="button" data-cat="floats">Floats</button>
+      <button class="pill" type="button" data-cat="beach-babies">Beach Babies</button>
+      <button class="pill" type="button" data-cat="treats">Treats</button>
+    </div>
+    <label class="sr-only" for="menuSearch">Search the menu</label>
+    <div class="menu__find">
+      <input class="search" id="menuSearch" type="search" placeholder="Search a drink or an ingredient…" autocomplete="off" enterkeyhint="search">
+      <button class="pill pill--pick" type="button" id="randomBtn">Pick for me</button>
+    </div>
+    </div>
+    <p class="menu__key"><span class="tag tag--sf">SF</span> sugar-free &middot; <span class="tag tag--caf">Caffeine</span> has caffeine</p>
+    <p class="empty" id="resultCount" role="status" style="display:none;margin-top:.6rem"></p>
+
+    <div class="menu__sec" id="dirty-sodas" data-cat="dirty-sodas">
+      <h2 class="menu__h">Dirty Sodas</h2>
+      <p class="menu__note">Pick your soda base, syrup, fruit pur&eacute;e and cream.</p>
+      <div class="menu__rule"></div>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Butter Me Up</span><span class="row__d">Root beer, butterscotch, vanilla cream</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Cake Walk</span><span class="row__d">Dr Pepper, cupcake, strawberry pur&eacute;e, vanilla cream</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Cherry on Top</span><span class="row__d">Pepsi, cherry, coconut, vanilla cream</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Cran-Do Attitude</span><span class="row__d">Diet Coke, cranberry, fresh lime</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Dew or Die</span><span class="row__d">Mountain Dew, pineapple, fresh lime, raspberry pur&eacute;e, coconut cream</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Dirty Little Secret</span><span class="row__d">Dr Pepper, coconut, fresh lime, coconut cream</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Fling on the Beach</span><span class="row__d">Dr Pepper, vanilla, strawberry pur&eacute;e, coconut cream</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Fruit Loop Lagoon</span><span class="row__d">Sprite, strawberry, watermelon, peach</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Guava Lava</span><span class="row__d">Mountain Dew, guava, strawberry, coconut cream</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Hula Hottie</span><span class="row__d">Sprite, lemonade, mango, pineapple, strawberry, coconut cream</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Just Beachy</span><span class="row__d">Dr Pepper, vanilla, peach, half &amp; half</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Nice Coconuts</span><span class="row__d">Coke, coconut, fresh lime, coconut cream</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">No Regrets</span><span class="row__d">Diet Dr Pepper, sugar free vanilla, sugar free coconut</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--sf" title="Sugar-free">SF<span class="sr-only"> (sugar-free)</span></span><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">One in a Melon</span><span class="row__d">Mountain Dew, mango, watermelon, coconut cream, passion fruit popping pearls</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Peach Please</span><span class="row__d">Sprite, peach, strawberry pur&eacute;e, coconut cream</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Pink Bikini</span><span class="row__d">Fresca, peach, strawberry, raspberry, fresh lemon</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Pour Decisions</span><span class="row__d">Build your own: pick the base, the syrup and the cream</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Razzle My Berries</span><span class="row__d">Sprite, raspberry, vanilla cream</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Salt Life</span><span class="row__d">Mountain Dew, pomegranate, grapefruit, fresh lime</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Shark Bait</span><span class="row__d">Mountain Dew, mango pur&eacute;e, strawberry pur&eacute;e</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Sunset on the Rocks</span><span class="row__d">Dr Pepper, raspberry, peach, coconut cream</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Sweet Cheeks</span><span class="row__d">Coke, peach, coconut</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Tan Lines</span><span class="row__d">Fresca, passion fruit, fresh orange, mango pur&eacute;e, coconut cream</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Thirst Trap</span><span class="row__d">Dr Pepper, coconut, sweet cream</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Tropic Like It's Hot</span><span class="row__d">Sprite, pineapple, coconut, coconut cream</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Upside-Down &amp; Dirty</span><span class="row__d">Dr Pepper, cherry, pineapple, coconut cream</span><span class="row__p">$3.49</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+      </ul>
+    </div>
+
+    <div class="menu__sec" id="seasonal" data-cat="seasonal">
+      <h2 class="menu__h">Seasonal</h2>
+      <p class="menu__note">Limited runs that come and go with the calendar. Ask what's pouring.</p>
+      <div class="menu__rule"></div>
+      <h3 class="menu__sub">Fall</h3>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Apple of My Thighs</span><span class="row__d">Blended diet Mountain Dew, green apple, green apple pur&eacute;e, caramel drizzle</span><span class="row__p">$3.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Cider Beaches</span><span class="row__d">Sprite, green apple, cinnamon, fresh lemon</span><span class="row__p">$3.99</span></li>
+        <li class="row"><span class="row__n">Fall Back &amp; Relax</span><span class="row__d">Root beer, cinnamon, vanilla cream, cinnamon stick</span><span class="row__p">$3.99</span></li>
+        <li class="row"><span class="row__n">Gourd Vibes Only</span><span class="row__d">Dr Pepper, vanilla, pumpkin sauce, coconut cream</span><span class="row__p">$3.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Harvest Moon</span><span class="row__d">Apple, raspberry, mango pur&eacute;e, vanilla cream</span><span class="row__p">$3.99</span></li>
+        <li class="row"><span class="row__n">Hayride Hottie</span><span class="row__d">Coke, caramel, apple, half &amp; half</span><span class="row__p">$3.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Pumpkin Spice &amp; Everything Dirty</span><span class="row__d">Dr Pepper, vanilla, cinnamon, pumpkin sauce, half &amp; half, cinnamon stick</span><span class="row__p">$3.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Spice Spice Beachy</span><span class="row__d">Energy base, cinnamon, pumpkin sauce, vanilla cream</span><span class="row__p">$3.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Sweater Weather</span><span class="row__d">Root beer, toasted marshmallow, butterscotch, vanilla cream</span><span class="row__p">$3.99</span></li>
+      </ul>
+      <h3 class="menu__sub">Halloween</h3>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Boo-tea Call</span><span class="row__d">Lemonade, blackberry, grape, fresh lime</span><span class="row__p">$3.99</span></li>
+        <li class="row"><span class="row__n">Ghosted</span><span class="row__d">Cream soda, vanilla, coconut cream, whipped cream</span><span class="row__p">$3.99</span></li>
+        <li class="row"><span class="row__n">The Graveyard Shift</span><span class="row__d">Energy base, black cherry, chamoy drizzle</span><span class="row__p">$3.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Witch Better Have My Candy</span><span class="row__d">Sprite, blue raspberry, gummy worms, Sour Patch bits</span><span class="row__p">$3.99</span></li>
+      </ul>
+      <h3 class="menu__sub">Winter</h3>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Frosty the Snowcone</span><span class="row__d">Blended lemonade, blue raspberry, coconut cream</span><span class="row__p">$3.99</span></li>
+        <li class="row"><span class="row__n">Jingle Juice</span><span class="row__d">Sprite, cranberry, pomegranate, fresh lime</span><span class="row__p">$3.99</span></li>
+        <li class="row"><span class="row__n">Naughty &amp; Nice</span><span class="row__d">Coke, cherry, vanilla, coconut cream</span><span class="row__p">$3.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Sleigh All Day</span><span class="row__d">Dr Pepper, peppermint, vanilla, half &amp; half</span><span class="row__p">$3.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+      </ul>
+      <h3 class="menu__sub">Valentine's</h3>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Crush On You</span><span class="row__d">Sprite, raspberry, strawberry pur&eacute;e, vanilla cream</span><span class="row__p">$3.99</span></li>
+        <li class="row"><span class="row__n">Love Potion No. 9</span><span class="row__d">Dr Pepper, raspberry, chocolate strawberry cream</span><span class="row__p">$3.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+      </ul>
+    </div>
+
+    <div class="menu__sec" id="refreshers" data-cat="refreshers">
+      <h2 class="menu__h">Refreshers</h2>
+      <p class="menu__note">No soda, no coffee. Fruit, cream and water over ice, most with sugar-free syrups.</p>
+      <div class="menu__rule"></div>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Berry Breezy</span><span class="row__d">Sugar-free coconut, sugar-free vanilla, strawberry pur&eacute;e, frozen strawberry, coconut cream</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Cannonball</span><span class="row__d">Sparkling water, sugar free pineapple, strawberry pur&eacute;e, fresh lemon</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Flamingle</span><span class="row__d">Guava, grapefruit, fresh orange</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Mango Tango</span><span class="row__d">Sugar-free coconut, sugar-free vanilla, mango pur&eacute;e, frozen mango, coconut cream</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Rash Guard</span><span class="row__d">Sugar-free vanilla, sugar-free peach, sugar-free pineapple, fresh lime, raspberry pur&eacute;e</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Spa Day</span><span class="row__d">Sugar free coconut, sugar free vanilla, frozen strawberry, frozen mango</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Unsinkable</span><span class="row__d">Grapefruit, mango pur&eacute;e, fresh lemon</span><span class="row__p">$3.49</span></li>
+      </ul>
+    </div>
+
+    <div class="menu__sec" id="coffee" data-cat="coffee">
+      <h2 class="menu__h">Coffee</h2>
+      <p class="menu__note">Hot or iced, your milk, your syrups.</p>
+      <div class="menu__rule"></div>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Basic Beach</span><span class="row__d">Americano: espresso and hot water</span><span class="row__p">$4.25</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Beach &amp; Bothered</span><span class="row__d">Caramel sea-salt latte</span><span class="row__p">$5.50</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Beach Drip</span><span class="row__d">Fresh-brewed drip coffee</span><span class="row__p">$2.95</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Beach S'mores</span><span class="row__d">Hot chocolate, whipped cream, graham crumble</span><span class="row__p">$4.50</span></li>
+        <li class="row"><span class="row__n">But First, Caffeine</span><span class="row__d">Vanilla-coconut latte</span><span class="row__p">$5.25</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Cappa-Cabana</span><span class="row__d">Cappuccino</span><span class="row__p">$4.75</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Cloud Nine</span><span class="row__d">Cold brew with sweet cream cold foam</span><span class="row__p">$5.25</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Coco Loco Mocha</span><span class="row__d">Coconut mocha, hot or iced</span><span class="row__p">$5.50</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Espresso Yourself</span><span class="row__d">Single or double shot</span><span class="row__p">$3.25</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Hot Mess</span><span class="row__d">Hot chocolate</span><span class="row__p">$3.95</span></li>
+        <li class="row"><span class="row__n">Salted Caramel Cloud</span><span class="row__d">Cold brew with salted caramel cold foam</span><span class="row__p">$5.50</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Wake &amp; Shake</span><span class="row__d">Iced latte, your pick of syrup</span><span class="row__p">$5.25</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+      </ul>
+    </div>
+
+    <div class="menu__sec" id="new-waves" data-cat="new-waves">
+      <h2 class="menu__h">New Waves</h2>
+      <p class="menu__note">The energy-and-fruit end of the menu.</p>
+      <div class="menu__rule"></div>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Beach Buzz</span><span class="row__d">Espresso tonic over ice with lime</span><span class="row__p">$4.95</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Beach Sting</span><span class="row__d">Lemonade, hot honey, fresh lemon</span><span class="row__p">$4.49</span></li>
+        <li class="row"><span class="row__n">Castaway</span><span class="row__d">Coke, coconut, coconut cream</span><span class="row__p">$3.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Feelin' Frisky</span><span class="row__d">Sprite, coconut, blue raspberry, fresh lime</span><span class="row__p">$4.49</span></li>
+        <li class="row"><span class="row__n">Golden Hour</span><span class="row__d">Orange soda, vanilla, sweet cream</span><span class="row__p">$3.99</span></li>
+        <li class="row"><span class="row__n">Lazy River</span><span class="row__d">Root beer, vanilla cream</span><span class="row__p">$3.99</span></li>
+        <li class="row"><span class="row__n">Low Tide</span><span class="row__d">Coconut water with citrus</span><span class="row__p">$4.95</span></li>
+        <li class="row"><span class="row__n">Pearl Diver</span><span class="row__d">Lemonade with popping pearls</span><span class="row__p">$4.49</span></li>
+        <li class="row"><span class="row__n">Spicy Señorita</span><span class="row__d">Sprite, mango, mango pur&eacute;e, chamoy, Taj&iacute;n rim</span><span class="row__p">$6.95</span></li>
+        <li class="row"><span class="row__n">Sunburn</span><span class="row__d">Dr Pepper, cherry, cinnamon</span><span class="row__p">$3.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Wipeout</span><span class="row__d">Sprite, blue raspberry, sour</span><span class="row__p">$3.99</span></li>
+      </ul>
+    </div>
+
+    <div class="menu__sec" id="lemonades" data-cat="lemonades">
+      <h2 class="menu__h">Lemonades</h2>
+      <p class="menu__note">Shaken, fruited, dangerously easy.</p>
+      <div class="menu__rule"></div>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Easy, Tiger</span><span class="row__d">Lemonade, raspberry, raspberry pur&eacute;e</span><span class="row__p">$3.99</span></li>
+        <li class="row"><span class="row__n">Kiss &amp; Tell</span><span class="row__d">Lemonade, mango, mango pur&eacute;e</span><span class="row__p">$3.99</span></li>
+        <li class="row"><span class="row__n">Main Squeeze</span><span class="row__d">Lemonade, strawberry, strawberry pur&eacute;e</span><span class="row__p">$3.99</span></li>
+        <li class="row"><span class="row__n">Pink Flamingo</span><span class="row__d">Lemonade, guava, grapefruit, fresh orange</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">When Life Gives You Beaches</span><span class="row__d">Lemonade, coconut, fresh lime</span><span class="row__p">$3.99</span></li>
+      </ul>
+    </div>
+
+    <div class="menu__sec" id="italian-sodas" data-cat="italian-sodas">
+      <h2 class="menu__h">Italian Sodas</h2>
+      <p class="menu__note">Cream and syrup over soda.</p>
+      <div class="menu__rule"></div>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Feelin' Blue</span><span class="row__d">Sparkling water, blue raspberry, coconut cream</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Fizzy Business</span><span class="row__d">Sparkling water, cherry, fresh lime</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">La Dolce Beach</span><span class="row__d">Sparkling water, vanilla, coconut, coconut cream</span><span class="row__p">$3.49</span></li>
+      </ul>
+    </div>
+
+    <div class="menu__sec" id="rescue-energy-drinks" data-cat="rescue-energy-drinks">
+      <h2 class="menu__h">Rescue – Energy Drinks</h2>
+      <p class="menu__note"></p>
+      <div class="menu__rule"></div>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Adios, Beaches</span><span class="row__d">Energy base, coconut, pineapple, blue raspberry</span><span class="row__p">$4.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Cloud Surfer</span><span class="row__d">Energy base, raspberry, blue raspberry, vanilla, vanilla cream</span><span class="row__p">$4.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Lemon Drop Kick</span><span class="row__d">Sugar free energy base, fresh lemon, frozen strawberries</span><span class="row__p">$4.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Passion Pit</span><span class="row__d">Energy base, passion fruit, peach, strawberry, mango pur&eacute;e</span><span class="row__p">$4.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Peach Out</span><span class="row__d">Energy base blended with ice, then peach, coconut and coconut cream</span><span class="row__p">$4.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Piña Collider</span><span class="row__d">Sugar free energy base, ginger ale, sugar-free coconut, sugar-free pineapple, mango pur&eacute;e, coconut cream</span><span class="row__p">$4.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Rise &amp; Grind</span><span class="row__d">Energy base, strawberry, peach, fresh orange</span><span class="row__p">$4.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Skinny Dippin'</span><span class="row__d">Sugar-free energy base, sugar-free peach</span><span class="row__p">$4.99</span><span class="row__b"><span class="tag tag--sf" title="Sugar-free">SF<span class="sr-only"> (sugar-free)</span></span><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Wet &amp; Wild</span><span class="row__d">Energy base, blue raspberry, coconut, fresh lime</span><span class="row__p">$4.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Wired &amp; Tired</span><span class="row__d">Energy base, passion fruit, guava, banana</span><span class="row__p">$4.99</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+      </ul>
+    </div>
+
+    <div class="menu__sec" id="soft-serve" data-cat="soft-serve">
+      <h2 class="menu__h">Soft Serve</h2>
+      <p class="menu__note">Twist, cones, cups, shakes.</p>
+      <div class="menu__rule"></div>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Float On</span><span class="row__d">Soft serve dropped into juice or soda</span><span class="row__p">$6.00</span></li>
+        <li class="row"><span class="row__n">Pineapple Express</span><span class="row__d">Classic pineapple soft serve</span><span class="row__p">$5.50</span></li>
+        <li class="row"><span class="row__n">Swirl Power</span><span class="row__d">Pineapple and vanilla soft serve, twisted</span><span class="row__p">$5.50</span></li>
+        <li class="row"><span class="row__n">Vanilla Vibes</span><span class="row__d">Creamy vanilla soft serve</span><span class="row__p">$5.00</span></li>
+        <li class="row"><span class="row__n">Whip It Good</span><span class="row__d">Soft serve loaded with every topping</span><span class="row__p">$6.50</span></li>
+      </ul>
+    </div>
+
+    <div class="menu__sec" id="floats" data-cat="floats">
+      <h2 class="menu__h">Floats</h2>
+      <p class="menu__note">Soft serve, dropped in.</p>
+      <div class="menu__rule"></div>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Build Your Own Float</span><span class="row__d">Pick a base, pick a soft-serve cap, load it up</span><span class="row__p">$5.95</span></li>
+        <li class="row"><span class="row__n">Cold Shoulder</span><span class="row__d">Dirty Dr Pepper under salted cold foam</span><span class="row__p">$6.50</span><span class="row__b"><span class="tag tag--caf">Caffeine</span></span></li>
+        <li class="row"><span class="row__n">Riptide</span><span class="row__d">Red, white and blue layered float</span><span class="row__p">$6.50</span></li>
+        <li class="row"><span class="row__n">Sandy Bottom</span><span class="row__d">Pineapple soft serve over your soda of choice</span><span class="row__p">$6.50</span></li>
+        <li class="row"><span class="row__n">Thicc &amp; Thirsty</span><span class="row__d">Protein float</span><span class="row__p">$7.50</span></li>
+      </ul>
+    </div>
+
+    <div class="menu__sec" id="beach-babies" data-cat="beach-babies">
+      <h2 class="menu__h">Beach Babies</h2>
+      <p class="menu__note">Smaller sizes for the little ones.</p>
+      <div class="menu__rule"></div>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Beach Ball</span><span class="row__d">Fruit punch with popping pearls</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Cotton Candy Cloud</span><span class="row__d">Lemonade, cotton candy, whipped cream</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Lil' Root Beer Float</span><span class="row__d">Root beer with vanilla soft serve</span><span class="row__p">$3.99</span></li>
+        <li class="row"><span class="row__n">Lil' Squirt</span><span class="row__d">Sprite, strawberry pur&eacute;e</span><span class="row__p">$2.99</span></li>
+        <li class="row"><span class="row__n">Mermaid Splash</span><span class="row__d">Lemonade, blue raspberry, whipped cream</span><span class="row__p">$3.49</span></li>
+        <li class="row"><span class="row__n">Sandcastle Shake</span><span class="row__d">Vanilla soft-serve shake</span><span class="row__p">$4.50</span></li>
+        <li class="row"><span class="row__n">Sharky</span><span class="row__d">Ask at the window</span><span class="row__p">$2.99</span></li>
+        <li class="row"><span class="row__n">Shore Temple</span><span class="row__d">Sprite, cherry, grenadine</span><span class="row__p">$2.99</span></li>
+      </ul>
+    </div>
+
+    <div class="menu__sec" id="treats" data-cat="treats">
+      <h2 class="menu__h">Treats</h2>
+      <p class="menu__note">Freeze-dried candy, made in house.</p>
+      <div class="menu__rule"></div>
+      <ul class="menu__grid">
+        <li class="row"><span class="row__n">Freeze-Dried Candy &mdash; Large</span><span class="row__d">Party bag, made in house, flavors rotate</span><span class="row__p">$9.99</span></li>
+        <li class="row"><span class="row__n">Freeze-Dried Candy &mdash; Medium</span><span class="row__d">Share bag, made in house, flavors rotate</span><span class="row__p">$5.99</span></li>
+        <li class="row"><span class="row__n">Freeze-Dried Candy &mdash; Small</span><span class="row__d">Snack bag, made in house, flavors rotate</span><span class="row__p">$3.99</span></li>
+      </ul>
+    </div>
+    <p class="empty" id="noResults" role="status" style="display:none">Nothing matches that. Try another word.</p>
+
+    <div class="actions" style="justify-content:flex-start;margin-top:3rem">
+      <a class="btn btn--solid" href="/#build">Build Your Own</a>
+      <a class="btn btn--ghost" href="/#find">Find the Trailer</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <span><a href="/dirty-soda-st-george">St. George</a>, Utah's Wasatch Front &amp; Florida's Gulf Coast &middot; We bring the beach to you</span>
+  <span>Around St. George: <a href="/dirty-soda-desert-color">Desert Color</a> &middot; <a href="/dirty-soda-bloomington-green-valley">Bloomington &amp; Green Valley</a> &middot; <a href="/dirty-soda-washington-city">Washington City</a> &middot; <a href="/dirty-soda-santa-clara">Santa Clara</a> &middot; <a href="/dirty-soda-ivins">Ivins</a> &middot; <a href="/dirty-soda-hurricane-sand-hollow">Hurricane</a> &middot; <a href="/dirty-soda-laverkin-toquerville-leeds">LaVerkin, Toquerville &amp; Leeds</a></span>
+  <span>St. George events: <a href="/st-george-wedding-soda-bar">Weddings</a> &middot; <a href="/st-george-graduation-birthday-party">Graduations &amp; birthdays</a> &middot; <a href="/st-george-hoa-neighborhood-party">HOA parties</a> &middot; <a href="/st-george-church-school-events">Church &amp; school</a> &middot; <a href="/st-george-tournaments-team-parties">Team parties</a> &middot; <a href="/st-george-company-party">Company parties</a></span>
+  <span><a href="mailto:hello@thirstybeaches.com">hello@thirstybeaches.com</a></span>
+  <span class="socials">
+    <a class="soc" href="https://www.instagram.com/thirstybeaches_fl" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 3.1A6.7 6.7 0 1 0 18.7 12 6.7 6.7 0 0 0 12 5.3zm0 11A4.3 4.3 0 1 1 16.3 12 4.3 4.3 0 0 1 12 16.3zm6.9-11.2a1.6 1.6 0 1 1-1.6-1.6 1.6 1.6 0 0 1 1.6 1.6z"/></svg></a>
+    <a class="soc" href="https://www.tiktok.com/@thirstybeachesflorida" target="_blank" rel="noopener" aria-label="TikTok"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 5.2a4.9 4.9 0 0 0 3.4 1.4v2.6a7.5 7.5 0 0 1-3.9-1.1v5.6a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.7a2.9 2.9 0 1 0 2 2.8V2h2.6a4.9 4.9 0 0 0 .6 3.2z"/></svg></a>
+    <a class="soc" href="https://www.facebook.com/people/Thirsty-Beaches/100077594055245/" target="_blank" rel="noopener" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+  </span>
+  <span>&copy; <span class="yr">2026</span> Thirsty Beaches</span>
+</footer>
+
+<button class="fxbtn" id="vhsBtn" type="button" aria-pressed="false">VHS mode</button>
+<script src="/app.js?v=ux20261025" defer></script>
+<script src="/arcade.js?v=ux20261025" defer></script>
+<script src="/specials.js" defer></script>
+<script src="/sw-register.js" defer></script>
+</body>
+</html>

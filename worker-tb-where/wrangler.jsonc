@@ -1,0 +1,32 @@
+{
+  "name": "tb-where",
+  "main": "src/worker.js",
+  "workers_dev": true,
+  "preview_urls": false,
+  "keep_vars": true,
+  // hourly: reminders for event quotes still "new" after 24 h / 72 h (see quoteReminders in src/worker.js)
+  "triggers": { "crons": ["0 * * * *"] },
+  "compatibility_date": "2026-08-09",
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 1,
+    "redact_query_string": false,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "persist": true,
+      "invocation_logs": true
+    },
+    "traces": {
+      "enabled": false,
+      "persist": true,
+      "head_sampling_rate": 1
+    }
+  },
+  "kv_namespaces": [
+    {
+      "id": "5fa4c89ed31a48ccb7de7ed6e528ea33",
+      "binding": "TB_LOC"
+    }
+  ]
+}

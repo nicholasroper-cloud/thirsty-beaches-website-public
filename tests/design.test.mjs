@@ -1,0 +1,20 @@
+// node tests/design.test.mjs — /api/design with a fake Claude.
+import { onRequestPost } from '../functions/api/design.js';
+import assert from 'node:assert/strict';
+const kv = new Map();
+const AI_RL = { get: async (k) => kv.get(k) ?? null, put: async (k, v) => { kv.set(k, v); } };
+const env = { AI_RL, ANTHROPIC_API_KEY: 'k' };
+const req = (b) => new Request('https://thirstybeaches.com/api/design', { method: 'POST', headers: { 'content-type': 'application/json', 'cf-connecting-ip': '2.2.2.2' }, body: JSON.stringify(b) });
+const pal = { cats: ['dirtysodas', 'lemonades'], bases: ['base:Dr Pepper', 'base:Sprite'], mods: ['flavor:Coconut', 'flavor:Vanilla', 'cream:Coconut Cream'] };
+let answer = { catKey: 'dirtysodas', base: 'base:Dr Pepper', mods: ['flavor:Coconut', 'flavor:Nope', 'cream:Coconut Cream'], name: 'Coco Loco Motion', blurb: 'Island time in a cup.' };
+globalThis.fetch = async (u, o) => { const b = JSON.parse(o.body); assert.match(b.system, /flavor:Coconut/); assert.match(b.messages[0].content, /Tropical/);
+  return new Response(JSON.stringify({ content: [{ type: 'text', text: JSON.stringify(answer) }] })); };
+let r = await (await onRequestPost({ request: req({ ...pal, mood: ['Tropical'], flavors: ['Coconut'] }), env })).json();
+assert.equal(r.ai, true); assert.deepEqual(r.mods, ['flavor:Coconut', 'cream:Coconut Cream']); assert.equal(r.base, 'base:Dr Pepper');
+answer = { catKey: 'coffee', mods: [] };
+r = await (await onRequestPost({ request: req({ ...pal, mood: ['Tropical'] }), env })).json();
+assert.equal(r.ai, false);
+r = await (await onRequestPost({ request: req({ ...pal }), env: { AI_RL } })).json();
+assert.deepEqual(r, { ai: false, reason: 'no-key' });
+assert.equal((await onRequestPost({ request: req({ cats: [], mods: [] }), env })).status, 400);
+console.log('design: all passed');

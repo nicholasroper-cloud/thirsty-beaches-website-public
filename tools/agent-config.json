@@ -1,0 +1,26 @@
+{
+  "base_url": "https://thirstybeaches.com",
+  "name": "Thirsty Beaches",
+  "summary": "A retro mobile trailer serving Utah-style dirty sodas, soft serve and fresh espresso, opening first in St. George and Washington County, Utah, and booking events on Utah's Wasatch Front (Lehi to Salt Lake City, plus Utah County) and Florida's Gulf Coast (Tampa Bay, Sarasota, Naples). Booking private events and catering now; public stops are posted on the homepage once booked.",
+  "about": "Thirsty Beaches is a Utah dirty soda trailer opening first in St. George. A dirty soda is a fountain soda (Dr Pepper, Coke, Sprite, Mountain Dew and others) over nugget ice with flavored syrups or fruit purée and a pour of cream. The same trailer also runs a soft-serve machine (cones, cups, shakes, floats) and pulls espresso to order. It caters weddings, school and church events, company parties, birthdays, HOA socials and markets.",
+  "facts": [
+    "Menu: 114 drinks and treats, $2.95 to $9.99. Sections: dirty sodas, seasonal, refreshers, coffee, lemonades, Italian sodas, energy drinks, soft serve, floats, kid sizes (Beach Babies) and treats. The classic order is the Thirst Trap: Dr Pepper, coconut and sweet cream ($3.49). Full menu with prices: https://thirstybeaches.com/menu.md",
+    "Zero-sugar versions of most sodas, plus caffeine-free lemonades and Italian sodas.",
+    "Service areas: Utah (St. George and Washington County first, including Desert Color, Bloomington and Green Valley in St. George, plus Washington City, Santa Clara, Ivins, Hurricane, LaVerkin, Toquerville and Leeds, plus Lehi, Utah County including Provo and Orem, Salt Lake County) and Florida's Gulf Coast (Tampa Bay, Sarasota, Naples).",
+    "Event packages: Sip & Go, Full Beach and Endless Summer. Quotes are answered within one business day.",
+    "Public stops are not open yet; booked stops and the live trailer location appear on the homepage.",
+    "Contact: hello@thirstybeaches.com"
+  ],
+  "actions": [
+    "Request a Utah event quote: https://thirstybeaches.com/utah-dirty-soda-catering#quote (form: name, email, phone, kind of event, date, guest count, city or venue, hours, who pays, services wanted, notes). The person's own contact details are required.",
+    "Request a Florida event quote: https://thirstybeaches.com/florida-dirty-soda-catering#quote",
+    "See the menu with prices: https://thirstybeaches.com/menu.md",
+    "Get text alerts for nearby stops: the signup form on https://thirstybeaches.com/#stops (the person must consent to texts themselves)."
+  ],
+  "sections": [
+    {"title": "Menu and the trailer", "paths": ["/", "/menu"]},
+    {"title": "Catering and events", "paths": ["/utah-dirty-soda-catering", "/st-george-wedding-soda-bar", "/st-george-tournaments-team-parties", "/st-george-church-school-events", "/st-george-graduation-birthday-party", "/st-george-hoa-neighborhood-party", "/st-george-company-party", "/florida-dirty-soda-catering", "/dirty-soda-wedding-catering-utah", "/dirty-soda-company-party-utah", "/dirty-soda-school-church-events-utah"]},
+    {"title": "Utah locations", "paths": ["/dirty-soda-st-george", "/dirty-soda-desert-color", "/dirty-soda-bloomington-green-valley", "/dirty-soda-washington-city", "/dirty-soda-santa-clara", "/dirty-soda-ivins", "/dirty-soda-hurricane-sand-hollow", "/dirty-soda-laverkin-toquerville-leeds", "/dirty-soda-lehi", "/dirty-soda-utah-county", "/dirty-soda-salt-lake-city"]},
+    {"title": "Florida locations", "paths": ["/dirty-soda-tampa-bay", "/dirty-soda-sarasota", "/dirty-soda-naples"]}
+  ]
+}

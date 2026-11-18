@@ -1,0 +1,16 @@
+/play  /#play  302
+/maze  /#play  302
+# Natural booking URLs people type or guess -> the Utah catering page
+/catering  /utah-dirty-soda-catering  301
+/events    /utah-dirty-soda-catering  301
+/book      /utah-dirty-soda-catering  301
+/booking   /utah-dirty-soda-catering  301
+/quote     /utah-dirty-soda-catering#quote  301
+/florida-catering  /florida-dirty-soda-catering  301
+/catering-florida  /florida-dirty-soda-catering  301
+# Punch-card API action names Google picked up from card.html as page URLs -> the card page
+/punch   /card  301
+/redeem  /card  301
+# St. George round two (2026-11-17): the combined Ivins & Santa Clara page became two town pages
+/dirty-soda-ivins-santa-clara       /dirty-soda-santa-clara  301
+/dirty-soda-ivins-santa-clara.html  /dirty-soda-santa-clara  301

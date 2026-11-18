@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Trailer Control — Thirsty Beaches</title>
+<meta name="theme-color" content="#12032E">
+<link rel="icon" href="/assets/logo-512.png?v=logo20261018">
+<link rel="apple-touch-icon" href="/assets/logo-512.png?v=logo20261018">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trailer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Thirsty">
+<link rel="apple-touch-icon" href="/assets/icon-192.png?v=logo20261018">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bungee&family=Archivo:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/styles.css?v=ux20261025">
+<style>
+  body{min-height:100svh;display:flex;align-items:center;justify-content:center;padding:1.25rem}
+  .pad{width:100%;max-width:26rem;text-align:center}
+  .pad img{width:min(70%,15rem);margin:0 auto 1.6rem}
+  .big{display:block;width:100%;padding:1.6rem 1rem;margin:.7rem 0;border:1px solid transparent;
+    font-family:"Bungee",sans-serif;font-size:1.05rem;cursor:pointer;transition:box-shadow .2s,transform .15s}
+  .big:active{transform:scale(.98)}
+  .go{background:linear-gradient(180deg,#3BE08A,#17A55E);color:#04210F;
+    border-color:rgba(120,255,190,.7);box-shadow:0 0 26px rgba(59,224,138,.45)}
+  .stop{background:transparent;color:var(--magenta);border-color:rgba(255,60,172,.6);
+    box-shadow:0 0 18px rgba(255,60,172,.25)}
+  .field{width:100%;background:rgba(42,245,228,.06);border:1px solid var(--rule);color:var(--foam);
+    padding:.85rem .9rem;font-family:"DM Mono",monospace;font-size:.85rem;margin:.4rem 0}
+  .field::placeholder{color:rgba(255,244,250,.6)}
+  .state{font-family:"DM Mono",monospace;font-size:1rem;letter-spacing:.02em;
+    min-height:3.2em;margin:1.2rem 0 0;color:var(--cyan);line-height:1.5}
+  /* open/closed: the current state is the big lit control, the other one is a smaller action */
+  .seg{display:flex;flex-direction:column;gap:.7rem;margin:.7rem 0}
+  .seg .big{margin:0;display:flex;flex-direction:column;align-items:center;gap:.35rem;line-height:1.25}
+  .seg .lbl{font-family:"Bungee",sans-serif}
+  .seg .sub{font-family:"Archivo",system-ui,sans-serif;font-size:1rem;font-weight:600;letter-spacing:0}
+  .seg .sub:empty{display:none}
+  .seg[data-state=open] #openBtn,.seg[data-state=closed] #closeBtn{order:-1;padding:1.7rem 1rem;font-size:1.35rem}
+  .seg[data-state=open] #closeBtn,.seg[data-state=closed] #openBtn{padding:1rem;font-size:.95rem;min-height:3.5rem;box-shadow:none}
+  .seg[data-state=open] #closeBtn{background:transparent}
+  .seg[data-state=closed] #openBtn{background:rgba(59,224,138,.08);color:#3BE08A;border-color:rgba(59,224,138,.7)}
+  .seg[data-state=closed] #closeBtn{background:linear-gradient(180deg,#5A1240,#3A0A2A);color:#FFE3F3;border-color:var(--magenta);
+    box-shadow:0 0 24px rgba(255,60,172,.35)}
+  .seg[data-state=open] #openBtn .lbl::before,.seg[data-state=closed] #closeBtn .lbl::before{content:"\25CF  ";font-size:.8em}
+  /* section labels: 13px+, ~9.8:1 on the page background (was 9.9px at 3.5:1) */
+  .muted{font-family:"DM Mono",monospace;font-size:.85rem;letter-spacing:.1em;
+    text-transform:uppercase;color:rgba(255,244,250,.72);margin-top:1.6rem}
+  .setup{border:1px solid rgba(255,209,102,.6);background:rgba(255,209,102,.07);padding:1rem;margin:0 0 1.2rem;text-align:left}
+  .setup__h{font-family:"Bungee",sans-serif;color:var(--yellow);font-size:1.05rem;margin:0 0 .3rem}
+  .setup__p{margin:0 0 .5rem;font-size:1rem;color:rgba(255,244,250,.85)}
+  .linkbtn{background:none;border:0;color:var(--cyan);font:inherit;text-decoration:underline;cursor:pointer;
+    min-height:44px;padding:0 .3rem;letter-spacing:inherit;text-transform:inherit}
+  .srow{border:1px solid var(--rule);padding:.6rem;margin:.5rem 0}
+  .rm{display:block;width:100%;min-height:44px;margin:.3rem 0 0;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.5);
+    color:#FF8A8A;font-family:"Archivo",system-ui,sans-serif;font-size:1rem;font-weight:600;cursor:pointer}
+  .unsaved{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;justify-content:space-between;gap:.8rem;
+    padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom));background:#2A2205;border-top:2px solid var(--yellow);
+    color:var(--yellow);font-size:1rem;font-weight:600}
+  .unsaved[hidden]{display:none}
+  body.has-unsaved{padding-bottom:6rem}
+  .unsaved button{min-height:44px;padding:0 1.1rem;background:var(--yellow);color:#1B1300;border:0;font:inherit;font-weight:700;cursor:pointer}
+  .qlist{text-align:left}
+  .q{border:1px solid var(--rule-ui);background:rgba(42,245,228,.04);padding:.9rem;margin:.7rem 0}
+  .q__head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.2rem .8rem;align-items:baseline}
+  .q__ev{font-size:1.05rem;color:var(--foam)}
+  .q__at{font-size:.85rem;color:rgba(255,244,250,.72)}
+  .q__who{font-size:1.15rem;font-weight:700;color:var(--cyan);margin:.2rem 0 .5rem}
+  .q__facts{display:grid;grid-template-columns:auto 1fr;gap:.15rem .8rem;margin:0;font-size:1rem}
+  .q__facts dt{color:rgba(255,244,250,.72)}
+  .q__facts dd{margin:0;word-break:break-word}
+  .q__notes{margin:.6rem 0 0;padding:.6rem .7rem;background:rgba(255,244,250,.05);font-size:1rem;white-space:pre-wrap;word-break:break-word}
+  .q__acts{display:grid;grid-template-columns:repeat(auto-fit,minmax(5.5rem,1fr));gap:.5rem;margin-top:.8rem}
+  .q__btn{display:flex;align-items:center;justify-content:center;min-height:48px;border:1px solid var(--cyan);color:var(--cyan);
+    text-decoration:none;font-weight:700;font-size:1rem}
+  .pcrow{display:flex;gap:.4rem;align-items:stretch}
+  .pcrow .field{flex:1;min-width:0;font-size:1rem;letter-spacing:.06em;text-transform:uppercase}
+  .pcrow .field[type=tel]{letter-spacing:0;text-transform:none}
+  .pcrow .field::placeholder{letter-spacing:0;text-transform:none}
+  /* "Tell the list we're open" (optional step after Open; hidden unless tb-where has BROADCAST_ENABLED) */
+  .tell{border:1px solid rgba(42,245,228,.6);background:rgba(42,245,228,.06);padding:1rem;margin:1rem 0 0;text-align:left}
+  .tell__h{font-family:"Bungee",sans-serif;font-synthesis:none;color:var(--cyan);font-size:1.1rem;margin:0 0 .3rem}
+  .tell__lbl{display:block;margin:.7rem 0 .1rem;font-size:1rem;font-weight:600;color:var(--foam)}
+  .tell__text{font-family:"Archivo",system-ui,sans-serif;font-size:1.05rem;line-height:1.45;resize:vertical;min-height:7rem}
+  .tell__meta{margin:.1rem 0 .4rem;font-family:"DM Mono",monospace;font-size:.875rem;color:rgba(255,244,250,.78)}
+  .tell__meta .err{color:#FF6B6B}
+  .tell .big{padding:1.1rem;font-size:1.05rem;margin:.5rem 0 .2rem}
+  .tell .big:disabled{opacity:.55;cursor:not-allowed}
+  .tell__skip{display:block;width:100%;text-align:center}
+  .tell .state{min-height:0;margin:.4rem 0 0;text-align:center}
+  .pcbtn{min-width:4.5rem;min-height:48px;margin:.4rem 0;background:rgba(42,245,228,.1);border:1px solid var(--cyan);color:var(--cyan);
+    font-weight:700;font-size:1rem;cursor:pointer}
+  #pcVideo{width:100%;margin:.4rem 0;border:1px solid var(--cyan)}
+  .pccard{border:1px solid var(--rule-ui);padding:.8rem;margin:.5rem 0;text-align:left;font-size:1rem}
+  .pccard b{display:block;font-size:1.25rem}
+  .pccard .dots{display:flex;gap:.3rem;margin:.5rem 0}
+  .pccard .dots i{flex:1;aspect-ratio:1;max-width:2rem;border-radius:50%;border:1px solid rgba(255,244,250,.5)}
+  .pccard .dots i.on{background:var(--magenta);border-color:var(--magenta)}
+  .pccard .warn{color:var(--yellow)}
+  .pccard small{display:block;color:rgba(255,244,250,.72);font-family:"DM Mono",monospace;font-size:.85rem}
+  .pcfree{background:rgba(255,209,102,.1);color:var(--yellow);border-color:rgba(255,209,102,.7);padding:1rem;font-size:.95rem}
+  .q__stl{margin:.8rem 0 .3rem;font-size:.85rem;color:rgba(255,244,250,.72)}
+  .q__st{display:grid;grid-template-columns:repeat(4,1fr);gap:.3rem}
+  .q__s{min-height:44px;padding:0 .2rem;background:transparent;border:1px solid rgba(255,244,250,.35);color:rgba(255,244,250,.85);
+    font:inherit;font-size:.9rem;font-weight:600;cursor:pointer}
+  .q__s[aria-pressed=true]{color:#120320;border-color:transparent}
+  .q__s--new[aria-pressed=true]{background:var(--yellow)}
+  .q__s--replied[aria-pressed=true]{background:var(--cyan)}
+  .q__s--booked[aria-pressed=true]{background:#3BE08A}
+  .q__s--declined[aria-pressed=true]{background:#C9BCC6}
+  .q[data-status=new]{border-color:rgba(255,209,102,.7)}
+  .q[data-status=declined]{opacity:.75}
+  [hidden]{display:none!important}   /* .big sets display:block, which would beat the hidden attribute */
+  .err{color:#FF6B6B}
+  .ok{color:#3BE08A}
+  .kiosk{border:1px solid var(--rule);padding:.7rem .8rem;margin:1rem 0 0;text-align:left}
+  .kiosk .state{margin:0;min-height:0;text-align:center}
+  .kdet{font-family:"DM Mono",monospace;font-size:.82rem;line-height:1.6;color:rgba(255,244,250,.72);margin:.5rem 0 0;word-break:break-word}
+  .kdet div{margin:.15rem 0}
+  .kdet .err{color:#FF6B6B}
+</style>
+</head>
+<body>
+<div class="pad">
+  <img src="/assets/logo-nav.png?v=logo20261018" srcset="/assets/logo-nav.png?v=logo20261018 1x, /assets/logo-nav@2x.png?v=logo20261018 2x" width="248" height="132" alt="Thirsty Beaches">
+
+  <form class="setup" id="setup" hidden>
+    <p class="setup__h">First, the trailer secret</p>
+    <p class="setup__p">The long secret (not the daily staff code). Paste it once: it stays on this phone only, and every button below uses it.</p>
+    <label class="sr-only" for="secret">Trailer secret</label>
+    <input class="field" id="secret" type="password" placeholder="Paste the trailer secret" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <button class="big go" type="submit" id="saveSecret" style="padding:1rem;font-size:.95rem">Save trailer secret</button>
+    <p class="state" id="secretMsg" style="min-height:0;margin:.4rem 0 0"></p>
+  </form>
+
+  <input class="field" id="label" type="text" placeholder="Where are you parked? (optional)" autocomplete="off">
+  <div class="seg" id="seg" data-state="unknown">
+    <button class="big go"   id="openBtn"  type="button" aria-pressed="false"><span class="lbl" id="openLbl">WE'RE OPEN</span><span class="sub" id="openSub"></span></button>
+    <button class="big stop" id="closeBtn" type="button" aria-pressed="false"><span class="lbl" id="closeLbl">WE'RE CLOSED</span><span class="sub" id="closeSub"></span></button>
+  </div>
+
+  <p class="state" id="state">Checking…</p>
+
+  <section class="tell" id="tell" aria-labelledby="tellH" hidden>
+    <h2 class="tell__h" id="tellH">Tell the list we’re open?</h2>
+    <p class="setup__p" id="tellWho">Optional.</p>
+    <label class="tell__lbl" for="tellText">Message (edit it if you like)</label>
+    <textarea class="field tell__text" id="tellText" rows="4" maxlength="300" autocapitalize="sentences"></textarea>
+    <p class="tell__meta" id="tellMeta"><span id="tellCount">0 / 300</span> · texts end with “Reply STOP to opt out”</p>
+    <button class="big go" type="button" id="tellSend">Send to the list</button>
+    <button class="linkbtn tell__skip" type="button" id="tellSkip">Not now</button>
+    <p class="state" id="tellMsg" aria-live="polite"></p>
+  </section>
+
+  <section class="punch" id="punchSec" aria-labelledby="punchH">
+    <p class="muted" id="punchH" style="margin:1.2rem 0 .5rem">Punch a card</p>
+    <p class="setup__p">Type the card ID from the customer’s card page, or point this phone’s camera at the QR code on it.</p>
+    <form id="pcForm" class="pcrow">
+      <label class="sr-only" for="pcId">Card ID</label>
+      <input class="field" id="pcId" type="text" placeholder="Card ID, e.g. K3J9 X0A1" autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false" enterkeyhint="search">
+      <button class="pcbtn" type="submit" id="pcFind">Find</button>
+      <button class="pcbtn" type="button" id="pcScan" hidden>Scan</button>
+    </form>
+    <form id="pcPhoneForm" class="pcrow">
+      <label class="sr-only" for="pcPhone">Find card by phone</label>
+      <input class="field" id="pcPhone" type="tel" inputmode="tel" placeholder="Or find by phone number" autocomplete="off">
+      <button class="pcbtn" type="submit">Find</button>
+    </form>
+    <video id="pcVideo" playsinline muted hidden></video>
+    <div id="pcCard" class="pccard" hidden></div>
+    <div id="pcActs" hidden>
+      <button class="big go" type="button" id="pcPunch" style="padding:1.1rem;font-size:1.05rem">Punch +1</button>
+      <button class="big pcfree" type="button" id="pcRedeem" hidden>Use 1 free drink</button>
+    </div>
+    <p class="state" id="pcMsg" style="min-height:0;margin:.4rem 0 0" aria-live="polite"></p>
+  </section>
+
+  <div class="kiosk" id="kioskCard" aria-live="polite">
+    <p class="state" id="kioskLine">Kiosk: checking…</p>
+    <div class="kdet" id="kioskDetail"></div>
+  </div>
+
+
+  <hr style="border:0;border-top:1px solid var(--rule);margin:2.2rem 0 1.4rem">
+  <p class="muted" style="margin:0 0 .8rem">Upcoming stops</p>
+  <div id="rows"></div>
+  <button class="big" style="background:transparent;color:var(--cyan);border-color:rgba(42,245,228,.5);font-size:.8rem;padding:.9rem" type="button" id="addRow">+ Add a stop</button>
+  <button class="big" style="background:transparent;color:var(--yellow);border-color:rgba(255,209,102,.5);font-size:.8rem;padding:.9rem" type="button" id="saveRows">Save schedule</button>
+  <p class="state" id="schedMsg" style="min-height:1.6em"></p>
+  <div class="unsaved" id="unsaved" role="status" hidden>
+    <span>Unsaved schedule changes</span>
+    <button type="button" id="saveNow">Save now</button>
+  </div>
+
+  <hr style="border:0;border-top:1px solid var(--rule);margin:1.8rem 0 1.2rem">
+  <button class="big" style="background:transparent;color:var(--yellow);border-color:rgba(255,209,102,.5);font-size:.75rem;padding:.8rem" type="button" id="codeBtn">Today’s staff code</button>
+  <button class="big" style="background:transparent;color:rgba(255,244,250,.7);border-color:var(--rule);font-size:.75rem;padding:.8rem" type="button" id="prizeBtn">How many won today</button>
+  <p class="state" id="codeOut" style="min-height:1.6em"></p>
+  <button class="big" style="background:transparent;color:rgba(255,244,250,.7);border-color:var(--rule);font-size:.75rem;padding:.8rem" type="button" id="exportSubs">Export alert list</button>
+  <textarea id="subsOut" class="field" rows="4" placeholder="Signups appear here" readonly></textarea>
+  <button class="big" style="background:transparent;color:var(--cyan);border-color:rgba(42,245,228,.5);font-size:.75rem;padding:.8rem" type="button" id="quotesBtn">Event quote requests</button>
+  <p class="state" id="quotesMsg" style="min-height:0;margin:.4rem 0"></p>
+  <div id="quotesList" class="qlist"></div>
+
+  <p class="muted" id="secretFoot" hidden>Trailer secret saved on this phone only &middot; <button type="button" class="linkbtn" id="changeSecret">change trailer secret</button></p>
+</div>
+
+<script>
+const API='https://tb-where.nicholasroper.workers.dev';
+const $=id=>document.getElementById(id);
+const state=$('state');
+
+/* remember the secret + label on this device */
+const KEY='tb-secret', LKEY='tb-label';
+const ls={ get(k){ try{ return localStorage.getItem(k)||''; }catch(e){ return ''; } },
+           set(k,v){ try{ localStorage.setItem(k,v); }catch(e){} } };
+$('secret').value=ls.get(KEY);
+$('label').value=ls.get(LKEY);
+$('label').addEventListener('change',e=>ls.set(LKEY,e.target.value.trim()));
+
+/* the secret setup comes first; once saved it hides behind a small "change secret" */
+let savedSecret=ls.get(KEY);
+const getSecret=()=>savedSecret;
+const WRONG='Trailer secret is wrong \u2014 tap \u201cchange trailer secret\u201d at the bottom';
+const hasSecret=()=>!!savedSecret;
+function showSetup(on){
+  $('setup').hidden=!on; $('secretFoot').hidden=on||!savedSecret;
+}
+showSetup(!savedSecret);
+/* call before anything that needs the secret: false (and points at the box) if it isn't saved yet */
+function needSecret(show){
+  if(hasSecret()) return true;
+  (show||(t=>say(t,'err')))('Add the trailer secret first (box at the top)');
+  showSetup(true);
+  $('setup').scrollIntoView({behavior:'smooth',block:'start'});
+  setTimeout(()=>$('secret').focus(),350);
+  return false;
+}
+$('changeSecret').onclick=()=>{ showSetup(true); $('secretMsg').textContent=''; $('setup').scrollIntoView({behavior:'smooth'}); $('secret').focus(); $('secret').select(); };
+$('setup').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const m=$('secretMsg'), v=$('secret').value.trim();
+  if(!v){ m.className='state err'; m.textContent='Paste the trailer secret first'; return; }
+  m.className='state'; m.textContent='Checking\u2026';
+  let ok=null;
+  try{ const r=await fetch(API+'/todaycode',{headers:{'Authorization':'Bearer '+v},cache:'no-store'}); ok=r.ok?true:r.status===401?false:null; }catch(err){}
+  if(ok===false){ m.className='state err'; m.textContent='That trailer secret isn\u2019t right \u2014 check it and paste again'; return; }
+  ls.set(KEY,v); savedSecret=v;
+  m.className='state ok'; m.textContent=ok?'Saved':'Saved (couldn\u2019t check it \u2014 no signal)';
+  showSetup(false);
+  say(ok?'Trailer secret saved on this phone':'Trailer secret saved \u2014 couldn\u2019t check it, no signal','ok');
+  if(typeof kioskStatus==='function') kioskStatus();
+});
+
+const say=(t,cls='')=>{ state.className='state '+cls; state.textContent=t; };
+
+const hm=t=>new Date(t).toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});
+/* while the trailer is open and this page is open, re-send the position every 30 min
+   (the worker keeps the pin open until "closed" or 12 h anyway; this keeps the spot current) */
+const REFRESH_MIN=30;
+let refreshing=false;
+function refreshPin(){
+  if(refreshing || !hasSecret() || !navigator.geolocation) return;
+  refreshing=true;
+  navigator.geolocation.getCurrentPosition(async p=>{
+    try{
+      const r=await post('/update',{lat:p.coords.latitude,lng:p.coords.longitude,label:$('label').value.trim(),open:true,refresh:true});
+      if(r && (r.ok || r.status===409)) setTimeout(status,800);
+    }catch(e){}
+    refreshing=false;
+  },()=>{ refreshing=false; },{enableHighAccuracy:true,timeout:12000,maximumAge:60000});
+}
+
+/* paint the open/closed control: the current state is the big lit button */
+let live=null;
+function setMode(d){
+  const open=!!(d&&d.open);
+  live=d?open:null;
+  $('seg').dataset.state=d?(open?'open':'closed'):'unknown';
+  $('openBtn').setAttribute('aria-pressed',String(open));
+  $('closeBtn').setAttribute('aria-pressed',String(!!d&&!open));
+  $('openLbl').textContent=open?'OPEN NOW':(d?'WE\u2019RE OPEN \u00b7 GO LIVE':'WE\u2019RE OPEN');
+  $('openSub').textContent=open?((d.label?d.label+' \u00b7 ':'')+'since '+hm(d.since||d.updated)+' \u00b7 tap to update your spot'):'';
+  $('closeLbl').textContent=open?'Close for the day':(d?'CLOSED':'WE\u2019RE CLOSED');
+  $('closeSub').textContent=d&&!open?'Not on the website map':'';
+}
+
+async function status(){
+  try{
+    const d=await (await fetch(API+'/where',{cache:'no-store'})).json();
+    setMode(d);
+    if(d.open){
+      say('Live on the website map \u00b7 pin updated '+agoText(d.ageMin),'ok');
+      if(d.ageMin>=REFRESH_MIN && document.visibilityState!=='hidden') refreshPin();
+    }
+    else if(d.expired) say('Not showing: it closed itself 12 h after opening. Tap We\u2019re open to go live again.');
+    else if(/^(Checking|Not showing)/.test(state.textContent)) say('');
+  }catch(e){ say('Could not reach the server','err'); }
+}
+document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='visible') status(); });
+
+function post(path, body){
+  if(!needSecret()) return;
+  const secret=getSecret();
+  return fetch(API+path,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+secret},
+    body: body?JSON.stringify(body):undefined
+  });
+}
+
+$('openBtn').addEventListener('click',()=>{
+  if(!needSecret()) return;
+  if(!navigator.geolocation){ say('This phone won\u2019t share location','err'); return; }
+  say('Getting your location…');
+  navigator.geolocation.getCurrentPosition(async p=>{
+    try{
+      const r=await post('/update',{
+        lat:p.coords.latitude, lng:p.coords.longitude,
+        label:$('label').value.trim(), open:true
+      });
+      if(!r) return;
+      if(r.status===401){ say(WRONG,'err'); return; }
+      if(!r.ok){ say('Server said no ('+r.status+')','err'); return; }
+      say('You\u2019re live on the site 🎉','ok');
+      setTimeout(status,1200);
+      tellOffer($('label').value.trim());
+    }catch(e){ say('Network error — try again','err'); }
+  },err=>{
+    say(err.code===1 ? 'Location permission denied — allow it in Settings'
+                     : 'Could not get a location fix','err');
+  },{enableHighAccuracy:true,timeout:12000,maximumAge:0});
+});
+
+$('closeBtn').addEventListener('click',async()=>{
+  if(live===false){ say('Already closed \u2014 nothing is showing on the map'); return; }
+  if(!needSecret()) return;
+  if(!confirm('Close for the day?\nThe pin comes off the website map.')) return;
+  say('Closing…');
+  try{
+    const r=await post('/close');
+    if(!r) return;
+    if(r.status===401){ say(WRONG,'err'); return; }
+    say('Closed — pin removed from the site','ok');
+    setTimeout(status,1200);
+  }catch(e){ say('Network error — try again','err'); }
+});
+
+
+/* ---- "Tell the list we're open": optional step right after Open ----
+   Shown only when tb-where says the feature is on (GET /broadcast -> 200; off answers 503 broadcast-off).
+   The message is prefilled from what was just sent with Open (the spot label) and nothing else. */
+let tellInfo=null;
+const tellSay=(t,c='')=>{ const m=$('tellMsg'); m.className='state '+c; m.textContent=t; };
+function tellDraft(label){
+  return 'Thirsty Beaches is open now'+(label?' at '+label:'')+'. See the map: thirstybeaches.com/#find';
+}
+function tellCount(){
+  const n=$('tellText').value.trim().length, c=$('tellCount');
+  c.textContent=n+' / 300'; c.className=n>300||!n?'err':'';
+  $('tellSend').disabled=!n||n>300||!tellInfo||!(tellInfo.phones+tellInfo.emails);
+}
+$('tellText').addEventListener('input',tellCount);
+async function tellOffer(label){
+  if(!hasSecret()) return;
+  let d=null;
+  try{
+    const r=await fetch(API+'/broadcast',{headers:{'Authorization':'Bearer '+getSecret()},cache:'no-store'});
+    if(!r.ok) return;                                   // off (503), wrong secret, or no signal: no step
+    d=await r.json();
+  }catch(e){ return; }
+  if(!d || !d.enabled) return;
+  tellInfo=d;
+  const pl=(n,w)=>n+' '+w+(n===1?'':'s');
+  const go=[], skip=[];
+  if(d.phones) (d.sms?go:skip).push(pl(d.phones,'phone'));
+  if(d.emails) (d.email?go:skip).push(pl(d.emails,'email'));
+  $('tellWho').textContent=!(d.phones+d.emails)?'Nobody is on the alert list yet.'
+    :(go.length?'Optional. Goes to '+go.join(' and ')+' on the alert list.':'Sending isn\u2019t set up yet.')
+     +(skip.length?' '+skip.join(' and ')+' skipped (not set up yet).':'');
+  $('tellText').value=tellDraft(label);
+  tellSay(d.lastAt && Date.now()-d.lastAt<36e5*12 ? 'Last sent '+hm(d.lastAt)+' today.' : '');
+  $('tell').hidden=false; tellCount();
+  $('tell').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+$('tellSkip').onclick=()=>{ $('tell').hidden=true; };
+$('tellSend').onclick=async()=>{
+  const text=$('tellText').value.trim();
+  if(!text||text.length>300||!tellInfo) return;
+  const who=[tellInfo.phones&&tellInfo.sms?tellInfo.phones+' phone'+(tellInfo.phones===1?'':'s'):'',
+             tellInfo.emails&&tellInfo.email?tellInfo.emails+' email'+(tellInfo.emails===1?'':'s'):''].filter(Boolean).join(' and ');
+  if(!who){ tellSay('Texts and emails aren\u2019t set up yet \u2014 nothing can be sent','err'); return; }
+  if(!confirm('Send this to '+who+'?\n\n'+text+(tellInfo.phones&&tellInfo.sms?'\n'+tellInfo.stopLine:''))) return;
+  $('tellSend').disabled=true; tellSay('Sending\u2026');
+  try{
+    const r=await post('/broadcast',{text});
+    if(!r) { tellCount(); return; }
+    const d=await r.json().catch(()=>({}));
+    if(r.status===401){ tellSay(WRONG,'err'); tellCount(); return; }
+    if(r.status===429){ tellSay('Already sent in the last 10 minutes \u2014 try again in '+(d.retryMin||10)+' min','err'); tellCount(); return; }
+    if(r.status===503){ tellSay('Sending to the list is switched off','err'); return; }
+    if(!r.ok){ tellSay('Not sent (server said '+r.status+')','err'); tellCount(); return; }
+    const out=[];
+    const s=d.sms||{}, e=d.email||{};
+    if(s.sent!=null) out.push(s.sent+' text'+(s.sent===1?'':'s')+' sent'+(s.failed?', '+s.failed+' failed':'')+(s.left?', '+s.left+' over the 500 limit not sent':''));
+    else if(s.error) out.push('Texts not sent ('+s.error+')');
+    else if(s.skipped==='no-sms'||s.skipped==='no-relay') out.push('Texts not set up');
+    if(e.sent!=null) out.push(e.sent+' email'+(e.sent===1?'':'s')+' sent'+(e.failed?', '+e.failed+' failed':''));
+    else if(e.skipped==='no-resend'||e.skipped==='no-email-footer') out.push('emails skipped (not set up)');
+    const okAny=(s.sent||0)+(e.sent||0)>0;
+    tellSay((out.join(' \u00b7 ')||'Nothing to send')+(okAny?' \u2713':''),okAny?'ok':'err');
+    $('tellSkip').textContent='Done';
+  }catch(err){ tellSay('Network error \u2014 it may not have gone out. Wait 10 min before trying again.','err'); tellCount(); }
+};
+
+/* ---- schedule manager ---- */
+const rows=document.getElementById('rows');
+/* unsaved changes: banner + leave-page guard until "Save schedule" succeeds */
+let dirty=false;
+function setDirty(on){
+  dirty=on;
+  $('unsaved').hidden=!on; document.body.classList.toggle('has-unsaved',on);
+  if(on){ const sm=$('schedMsg'); if(/^Saved/.test(sm.textContent)) sm.textContent=''; }
+}
+addEventListener('beforeunload',e=>{ if(dirty){ e.preventDefault(); e.returnValue=''; } });
+function field(type,k,val,ph){
+  const i=document.createElement('input'); i.className='field'; i.type=type; i.dataset.k=k; i.value=val||'';
+  if(ph) i.placeholder=ph; i.setAttribute('aria-label',ph||k); i.style.margin='.2rem 0';
+  return i;
+}
+function addRow(v={}){
+  const d=document.createElement('div');
+  d.className='srow';
+  const times=document.createElement('div'); times.style.cssText='display:flex;gap:.4rem';
+  times.append(field('time','start',v.start,'Start'),field('time','end',v.end,'End'));
+  const rm=document.createElement('button'); rm.type='button'; rm.className='rm'; rm.textContent='Remove this stop';
+  rm.onclick=()=>{ d.remove(); setDirty(true); };
+  d.append(field('date','date',v.date,'Date'),field('text','label',v.label,'Where \u2014 e.g. St. Pete Farmers Market'),times,
+           field('text','note',v.note,'Note (optional)'),rm);
+  d.addEventListener('input',()=>setDirty(true));
+  rows.appendChild(d);
+}
+document.getElementById('addRow').onclick=()=>{ addRow(); setDirty(true); };
+
+(async()=>{
+  try{
+    const {stops}=await (await fetch(API+'/schedule',{cache:'no-store'})).json();
+    (stops||[]).forEach(addRow);
+    if(!stops || !stops.length) addRow();
+  }catch(e){ addRow(); }
+})();
+
+$('saveNow')&&($('saveNow').onclick=()=>$('saveRows').click());
+document.getElementById('saveRows').onclick=async()=>{
+  const sm=document.getElementById('schedMsg');
+  const stops=[...rows.children].map(r=>{
+    const o={}; r.querySelectorAll('[data-k]').forEach(i=>o[i.dataset.k]=i.value.trim()); return o;
+  }).filter(s=>s.date&&s.label);
+  if(!needSecret(t=>{ sm.textContent=t; })) return;
+  sm.textContent='Saving…';
+  try{
+    const r=await post('/schedule',{stops});
+    if(!r) return;
+    if(r.status===401){ sm.textContent=WRONG; return; }
+    const d=await r.json();
+    if(!r.ok){ sm.textContent='Not saved (server said '+r.status+') \u2014 try again'; return; }
+    sm.textContent='Saved '+d.count+' stop'+(d.count===1?'':'s');
+    setDirty(false);
+  }catch(e){ sm.textContent='Network error'; }
+};
+
+document.getElementById('codeBtn').onclick=async()=>{
+  const o=document.getElementById('codeOut');
+  if(!needSecret(t=>{ o.textContent=t; })) return;
+  o.textContent='Checking…';
+  try{
+    const secret=getSecret();
+    const r=await fetch(API+'/todaycode',{headers:{'Authorization':'Bearer '+secret}});
+    if(r.status===401){ o.textContent=WRONG; return; }
+    const d=await r.json();
+    o.textContent='Today\u2019s staff code: '+String(d.code).replace(/^UPSIZE-/,'')+' (same as '+d.code+')';
+  }catch(e){ o.textContent='Could not load'; }
+};
+
+document.getElementById('prizeBtn').onclick=async()=>{
+  const o=document.getElementById('codeOut');
+  if(!needSecret(t=>{ o.textContent=t; })) return;
+  o.textContent='Checking…';
+  try{
+    const secret=getSecret();
+    const r=await fetch(API+'/prizes',{headers:{'Authorization':'Bearer '+secret}});
+    if(r.status===401){ o.textContent=WRONG; return; }
+    const d=await r.json();
+    o.textContent=d.issued+' upsize'+(d.issued===1?'':'s')+' won today \u00b7 code '+d.code;
+  }catch(e){ o.textContent='Could not load'; }
+};
+
+document.getElementById('exportSubs').onclick=async()=>{
+  const out=document.getElementById('subsOut');
+  if(!needSecret(t=>{ out.value=t; })) return;
+  out.value='Loading…';
+  try{
+    const secret=getSecret();
+    const r=await fetch(API+'/subs',{headers:{'Authorization':'Bearer '+secret}});
+    if(r.status===401){ out.value=WRONG; return; }
+    const d=await r.json();
+    out.value=d.count+' signups\n\n'+d.subscribers.map(s=>s.id).join('\n');
+  }catch(e){ out.value='Could not load'; }
+};
+
+/* ---- event quote requests: one card each, newest first, tap to call / text / email ----
+   Everything in a quote was typed by a visitor: rendered with textContent only. */
+function el(tag,cls,text){ const e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
+function telDigits(p){ const d=String(p||'').replace(/\D/g,''); return d.length===10?'+1'+d:(d.length===11&&d[0]==='1')?'+'+d:(d.length>=7?d:''); }
+function niceDate(d){ try{ return new Date(d+'T12:00:00Z').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric',timeZone:'UTC'}); }catch(e){ return d; } }
+function quoteCard(q){
+  const c=el('article','q');
+  const h=el('div','q__head');
+  h.append(el('b','q__ev',(q.event||'Event')+' \u00b7 '+niceDate(q.date)), el('span','q__at','received '+agoText(Math.round((Date.now()-q.at)/60000))));
+  c.append(h, el('div','q__who',q.name||''));
+  const facts=el('dl','q__facts');
+  const fact=(k,v)=>{ if(!v) return; facts.append(el('dt','',k), el('dd','',v)); };
+  fact('Guests',q.guests); fact('Where',q.city); fact('Hours',q.hours);
+  fact('Wants',(q.services||[]).join(', ')); fact('Pays',q.pay);
+  fact('Email',q.email); fact('Phone',q.phone);
+  c.append(facts);
+  if(q.notes) c.append(el('p','q__notes',q.notes));
+  const acts=el('div','q__acts');
+  const link=(label,href)=>{ const a=el('a','q__btn',label); a.href=href; acts.append(a); };
+  const tel=telDigits(q.phone);
+  if(tel){ link('Call','tel:'+tel); link('Text','sms:'+tel); }
+  if(q.email) link('Email','mailto:'+q.email+'?subject='+encodeURIComponent('Your Thirsty Beaches quote ('+(q.event||'event')+', '+niceDate(q.date)+')'));
+  c.append(acts);
+  /* follow-up status: tap to set (one KV write); "new" ones get reminder pushes at 24 h and 72 h */
+  const st=q.status||'new';
+  c.dataset.status=st;
+  const row=el('div','q__st'); row.setAttribute('role','group'); row.setAttribute('aria-label','Status');
+  [['new','New'],['replied','Replied'],['booked','Booked'],['declined','Declined']].forEach(([v,label])=>{
+    const b=el('button','q__s q__s--'+v,label); b.type='button'; b.setAttribute('aria-pressed',String(v===st));
+    b.onclick=()=>setQuoteStatus(q,v,row); row.append(b);
+  });
+  c.append(el('div','q__stl','Status'),row);
+  return c;
+}
+async function setQuoteStatus(q,v,row){
+  if((q.status||'new')===v || !needSecret(t=>{ $('quotesMsg').className='state err'; $('quotesMsg').textContent=t; })) return;
+  row.querySelectorAll('button').forEach(b=>b.disabled=true);
+  try{
+    const r=await fetch(API+'/quote/status',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+getSecret()},body:JSON.stringify({id:q.id,status:v})});
+    if(r.status===401){ $('quotesMsg').className='state err'; $('quotesMsg').textContent=WRONG; }
+    else if(r.ok){ q.status=v; renderQuotes(); quotesSummary(); return; }
+    else { $('quotesMsg').className='state err'; $('quotesMsg').textContent='Couldn\u2019t save the status ('+r.status+')'; }
+  }catch(e){ $('quotesMsg').className='state err'; $('quotesMsg').textContent='Network error \u2014 status not saved'; }
+  row.querySelectorAll('button').forEach(b=>b.disabled=false);
+}
+function quotesSummary(){
+  const m=$('quotesMsg'), n=quotesCache.length, fresh=quotesCache.filter(q=>(q.status||'new')==='new').length;
+  m.className='state'; m.textContent=n?n+' request'+(n===1?'':'s')+(fresh?' \u00b7 '+fresh+' still new':'')+', newest first':'No quote requests yet';
+}
+let quotesCache=[];
+function renderQuotes(){
+  const list=$('quotesList'); list.textContent='';
+  quotesCache.slice().sort((a,b)=>(b.at||0)-(a.at||0)).forEach(q=>list.append(quoteCard(q)));
+}
+document.getElementById('quotesBtn').onclick=async()=>{
+  const m=$('quotesMsg');
+  if(!needSecret(t=>{ m.className='state err'; m.textContent=t; })) return;
+  m.className='state'; m.textContent='Loading\u2026';
+  try{
+    const r=await fetch(API+'/quotes?limit=100',{headers:{'Authorization':'Bearer '+getSecret()},cache:'no-store'});
+    if(r.status===401){ m.className='state err'; m.textContent=WRONG; return; }
+    const d=await r.json();
+    quotesCache=d.quotes||[];
+    renderQuotes(); quotesSummary();
+  }catch(e){ m.className='state err'; m.textContent='Could not load \u2014 check signal and try again'; }
+};
+
+/* ---- staff-side punch card: the customer shows their card, staff punch it on THIS phone ----
+   (no staff code typed on the customer's phone). The card id comes from typing, the QR code
+   (phone camera opens /trailer#card=ID) or the in-page scanner where the browser has one. */
+const pc={id:null,card:null};
+const pcSay=(t,c='')=>{ const m=$('pcMsg'); m.className='state '+c; m.textContent=t; };
+const cleanId=v=>String(v||'').replace(/[^a-z0-9]/gi,'').toLowerCase().slice(0,32);
+const groupId=id=>id.toUpperCase().match(/.{1,4}/g).join(' ');
+function pcPaint(){
+  const box=$('pcCard'), c=pc.card;
+  box.hidden=!c; $('pcActs').hidden=!c;
+  if(!c) return;
+  box.textContent='';
+  const p=Math.max(0,Math.min(10,Number(c.punches)||0)), fr=Math.max(0,Number(c.redeemed)||0);
+  box.append(el('b','',p+' of 10 punches'+(fr?' · '+fr+' free drink'+(fr>1?'s':'')+' ready':'')));
+  const dots=el('div','dots'); for(let i=0;i<10;i++) dots.append(el('i',i<p?'on':'')); box.append(dots);
+  if(c.exists===false) box.append(el('div','warn','No card saved under this ID yet. Check the ID with the customer; punching starts a new card.'));
+  box.append(el('small','','Card '+groupId(pc.id)));
+  $('pcRedeem').hidden=fr<1;
+}
+async function pcLoad(id){
+  id=cleanId(id);
+  if(id.length<6){ pcSay('Type the whole card ID (letters and numbers under the circles)','err'); return; }
+  pc.id=id; $('pcId').value=groupId(id); pcSay('Looking up…');
+  try{
+    const r=await fetch(API+'/card?id='+id,{cache:'no-store'});
+    const d=await r.json();
+    if(!r.ok){ pcSay('Couldn’t load that card','err'); return; }
+    if(d.mergedInto && d.mergedInto!==id){ pcSay('That card was merged into another one \u2014 loading it'); return pcLoad(d.mergedInto); }
+    pc.card=d; pcPaint(); pcSay('');
+  }catch(e){ pcSay('Network error — try again','err'); }
+}
+$('pcForm').addEventListener('submit',e=>{ e.preventDefault(); pcLoad($('pcId').value); });
+/* find by phone: for customers who saved their card to their number (no customer phone needed) */
+$('pcPhoneForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  if(!needSecret(t=>pcSay(t,'err'))) return;
+  const d=String($('pcPhone').value).replace(/\D/g,'');
+  if(d.length<10){ pcSay('Type the full 10-digit number','err'); return; }
+  pcSay('Looking up…');
+  try{
+    const r=await fetch(API+'/card/byphone?phone='+encodeURIComponent(d),{headers:{'Authorization':'Bearer '+getSecret()},cache:'no-store'});
+    const res=await r.json().catch(()=>({}));
+    if(r.status===401) return pcSay(WRONG,'err');
+    if(r.status===400) return pcSay('That doesn’t look like a US phone number','err');
+    if(r.status===404) return pcSay('No card is saved to that number','err');
+    if(!r.ok) return pcSay('Couldn’t look that up ('+r.status+')','err');
+    pc.id=res.id; pc.card=res.card; $('pcId').value=groupId(res.id); pcPaint();
+    pcSay('Found the card saved to (•••) •••-'+res.last4,'ok');
+  }catch(err){ pcSay('Network error — try again','err'); }
+});
+$('pcId').addEventListener('input',()=>{ if(pc.card && cleanId($('pcId').value)!==pc.id){ pc.card=null; pcPaint(); } });
+async function pcAction(path){
+  if(!needSecret(t=>pcSay(t,'err')) || !pc.id) return null;
+  try{
+    const r=await fetch(API+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:pc.id,staff:getSecret()})});
+    let d={}; try{ d=await r.json(); }catch(e){}
+    if(d.card){ pc.card=Object.assign({},d.card,{exists:true}); pcPaint(); }
+    return {r,d};
+  }catch(e){ pcSay('Network error — try again','err'); return null; }
+}
+$('pcPunch').onclick=async()=>{
+  pcSay('Punching…');
+  const res=await pcAction('/punch'); if(!res) return;
+  const {r,d}=res;
+  if(r.status===401) return pcSay(WRONG,'err');
+  if(r.status===429) return pcSay(d.error==='too-many-tries'?'Too many wrong codes from this phone \u2014 wait 15 min':'Already punched in the last 3 minutes','err');
+  if(d.error==='merged'){ pcSay('That card was merged into another one \u2014 loading it'); return pcLoad(d.into); }
+  if(!r.ok) return pcSay('Couldn’t punch ('+r.status+') — try again','err');
+  pcSay(d.earned?'That’s ten — free drink unlocked':'Punched — '+d.card.punches+' of 10','ok');
+};
+$('pcRedeem').onclick=async()=>{
+  if(!confirm('Use 1 free drink on this card?')) return;
+  pcSay('Redeeming…');
+  const res=await pcAction('/card/redeem'); if(!res) return;
+  const {r,d}=res;
+  if(r.status===401) return pcSay(WRONG,'err');
+  if(d.error==='nothing-to-redeem') return pcSay('No free drink on this card','err');
+  if(d.error==='merged'){ pcSay('That card was merged into another one \u2014 loading it'); return pcLoad(d.into); }
+  if(!r.ok) return pcSay('Couldn’t redeem ('+r.status+') — try again','err');
+  pcSay('Free drink used — enjoy','ok');
+};
+/* in-page scanner (Android Chrome has BarcodeDetector; on iPhone use the Camera app on the QR) */
+if('BarcodeDetector' in window && navigator.mediaDevices){
+  $('pcScan').hidden=false;
+  let stream=null;
+  const stop=()=>{ if(stream) stream.getTracks().forEach(t=>t.stop()); stream=null; $('pcVideo').hidden=true; $('pcScan').textContent='Scan'; };
+  $('pcScan').onclick=async()=>{
+    if(stream) return stop();
+    try{
+      const det=new BarcodeDetector({formats:['qr_code']}), v=$('pcVideo');
+      stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
+      v.srcObject=stream; v.hidden=false; await v.play(); $('pcScan').textContent='Stop';
+      const tick=async()=>{
+        if(!stream) return;
+        try{ const c=await det.detect(v); const raw=c[0]&&c[0].rawValue;
+          if(raw){ const m=raw.match(/card=([a-z0-9]+)/i); stop(); pcLoad(m?m[1]:raw); return; } }catch(e){}
+        requestAnimationFrame(tick);
+      };
+      tick();
+    }catch(e){ stop(); pcSay('Camera not available — type the ID instead','err'); }
+  };
+}
+(function(){ const m=location.hash.match(/card=([a-z0-9]+)/i);
+  if(m){ pcLoad(m[1]); history.replaceState(null,'',location.pathname); setTimeout(()=>$('punchSec').scrollIntoView({block:'start'}),300); } })();
+
+/* ---- drink kiosk status (heartbeat from the kiosk PC; read-only) ----
+   Everything from the ping is untrusted text: rendered with textContent only. */
+function agoText(min){
+  if(min==null) return '?';
+  if(min<1) return 'just now';
+  if(min<90) return min+' min ago';
+  if(min<48*60) return Math.round(min/60)+' h ago';
+  return Math.round(min/1440)+' days ago';
+}
+function kline(parent,text,cls){ const d=document.createElement('div'); d.textContent=text; if(cls) d.className=cls; parent.appendChild(d); }
+async function kioskStatus(){
+  const line=$('kioskLine'), det=$('kioskDetail');
+  try{
+    const d=await (await fetch(API+'/kiosk/status',{cache:'no-store'})).json();
+    if(!d || !d.lastSeen){ line.className='state'; line.textContent='Kiosk: no status reports yet'; }
+    else{
+      line.className='state '+(d.online?'ok':'err');
+      line.textContent='Kiosk: '+(d.online?'online':'offline')+' \u00b7 v'+d.version+' \u00b7 seen '+agoText(d.ageMin);
+    }
+  }catch(e){ line.className='state err'; line.textContent='Kiosk: status unavailable'; }
+  const secret=getSecret();
+  det.textContent='';
+  if(!secret) return;
+  try{
+    const r=await fetch(API+'/kiosk/status?full=1',{headers:{'Authorization':'Bearer '+secret},cache:'no-store'});
+    if(!r.ok) return;
+    const k=((await r.json()).kiosks||[])[0];
+    if(!k) return;
+    const t=s=>s?new Date(s).toLocaleString():'?';
+    if(k.appDown) kline(det,'\u26a0 kiosk PC is up but the kiosk server is not answering','err');
+    if(k.safeMode) kline(det,'\u26a0 SAFE MODE: remote settings ignored after crashes','err');
+    if(k.trial) kline(det,'checking a just-installed update\u2026');
+    if(k.rollback) kline(det,'\u21a9 rolled back v'+k.rollback.from+' \u2192 v'+k.rollback.to+' ('+t(k.rollback.at)+'): '+(k.rollback.reason||''),'err');
+    if(k.lastUpdate) kline(det,'last update: v'+k.lastUpdate.version+' '+(k.lastUpdate.ok===true?'ok':k.lastUpdate.ok===false?'FAILED':'pending')+' \u00b7 '+t(k.lastUpdate.at)+(k.lastUpdate.error?' \u00b7 '+k.lastUpdate.error:''),k.lastUpdate.ok===false?'err':'');
+    if(k.pay) kline(det,'tap-to-pay: '+(k.pay.enabled?(k.pay.flexConnected?'on, Flex connected':'on, Flex NOT connected ('+(k.pay.state||'?')+')'):'off'),k.pay.enabled&&!k.pay.flexConnected?'err':'');
+    if(k.clover) kline(det,'Clover: last ok '+t(k.clover.lastOk)+(k.clover.lastError?' \u00b7 last error '+k.clover.lastError:''));
+    kline(det,'up since '+t(k.startedAt)+' \u00b7 node '+(k.node||'?')+' \u00b7 disk free '+(k.freeDiskMB!=null?k.freeDiskMB+' MB':'?')+(k.settings&&k.settings.length?' \u00b7 remote settings: '+k.settings.join(', '):''));
+    (k.errors||[]).slice(-4).reverse().forEach(e=>kline(det,'! '+e,'err'));
+  }catch(e){}
+}
+kioskStatus();
+setInterval(kioskStatus,60000);
+
+status();
+setInterval(status,60000);
+</script>
+<script src="/sw-register.js" defer></script>
+</body>
+</html>
